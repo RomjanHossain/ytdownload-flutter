@@ -1,0 +1,81 @@
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:ytdownload/pages/download/downloadpage.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:ytdownload/services/getvidyt.dart';
+import 'package:ytdownload/utils/const.dart';
+
+/// my app bar
+NeumorphicAppBar myAppBar(
+  BuildContext context,
+  String title,
+  isNavBack back,
+  isDown down,
+) {
+  return NeumorphicAppBar(
+    color: kprimaryColor,
+    title: Row(
+      children: <Widget>[
+        SvgPicture.asset(
+          'assets/svg/yt.svg',
+          alignment: Alignment.centerLeft,
+          width: 45,
+        ),
+        Expanded(
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: Colors.black,
+                ),
+            overflow: TextOverflow.ellipsis,
+            softWrap: true,
+            maxLines: 1,
+          ),
+        ),
+      ],
+    ),
+    /* automaticallyImplyLeading: false, */
+
+    centerTitle: back == isNavBack.yes,
+    leading: back == isNavBack.yes
+        ? NeumorphicButton(
+            style: const NeumorphicStyle(
+              /* shadowDarkColor: Colors.black, */
+              boxShape: NeumorphicBoxShape.circle(),
+              depth: 2,
+              intensity: 0.6,
+            ),
+            onPressed: () {
+              Provider.of<GetVideosFromYT>(context, listen: false).dispoo();
+              Navigator.pop(context);
+            },
+            child: const Icon(Icons.navigate_before))
+        : null,
+    actions: <Widget>[
+      /// drawer button
+      if (down == isDown.yes)
+        NeumorphicButton(
+          style: const NeumorphicStyle(
+            /* shadowLightColor: Colors.red, */
+            /* shadowDarkColor: Colors.black, */
+            boxShape: NeumorphicBoxShape.circle(),
+            depth: 2,
+            intensity: 0.6,
+          ),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => const DownloadPage()));
+          },
+          child: const Icon(
+            LineIcons.download,
+            color: Colors.black,
+          ),
+        )
+      else
+        SizedBox.shrink()
+    ],
+  );
+}
