@@ -1,8 +1,11 @@
+import 'dart:io';
 import 'dart:isolate';
 import 'dart:ui';
 
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:ytdownload/utils/const.dart';
 import 'package:ytdownload/widgets/appbar.dart';
 
@@ -18,6 +21,7 @@ class DownloadPage extends StatefulWidget {
 class _DownloadPageState extends State<DownloadPage> {
   /// tasks
   List<_TaskInfo>? _tasks;
+  Directory? directory;
   late List<_ItemHolder> _items;
   late bool _isLoading;
   late bool _permissionReady;
@@ -52,15 +56,16 @@ class _DownloadPageState extends State<DownloadPage> {
       return;
     }
     _port.listen((dynamic data) {
-      if (debug) {
+      if (true) {
         print('UI Isolate Callback: $data');
       }
-      String? id = data[0];
-      DownloadTaskStatus? status = data[1];
-      int? progress = data[2];
+      final String? id = data[0];
+      final DownloadTaskStatus? status = data[1];
+      final int? progress = data[2];
 
       if (_tasks != null && _tasks!.isNotEmpty) {
-        final task = _tasks!.firstWhere((task) => task.taskId == id);
+        final _TaskInfo task =
+            _tasks!.firstWhere((_TaskInfo task) => task.taskId == id);
         setState(() {
           task.status = status;
           task.progress = progress;
@@ -69,29 +74,281 @@ class _DownloadPageState extends State<DownloadPage> {
     });
   }
 
+  void _unbindBackgroundIsolate() {
+    IsolateNameServer.removePortNameMapping('downloader_send_port');
+  }
+
+  static void downloadCallback(
+      String id, DownloadTaskStatus status, int progress) {
+    if (true) {
+      print(
+          'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)');
+    }
+    final SendPort send =
+        IsolateNameServer.lookupPortByName('downloader_send_port')!;
+    send.send([id, status, progress]);
+  }
+
   @override
   Widget build(BuildContext context) {
     return NeumorphicTheme(
-        themeMode: ThemeMode.light,
-        darkTheme: const NeumorphicThemeData(
-          baseColor: NeumorphicColors.darkBackground,
-          accentColor: NeumorphicColors.darkAccent,
-          depth: 6,
-          intensity: 0.3,
+      themeMode: ThemeMode.light,
+      darkTheme: const NeumorphicThemeData(
+        baseColor: NeumorphicColors.darkBackground,
+        accentColor: NeumorphicColors.darkAccent,
+        depth: 6,
+        intensity: 0.3,
+      ),
+      theme: const NeumorphicThemeData(
+        baseColor: kprimaryColor,
+        depth: 10,
+        intensity: 0.5,
+      ),
+      child: Scaffold(
+        backgroundColor: kprimaryColor,
+        appBar: myAppBar(context, 'Downloads', isNavBack.yes, isDown.no),
+        body: Builder(
+            builder: (BuildContext context) => _isLoading
+                ? const Center(
+                    child: CircularProgressIndicator(),
+                  )
+                : _permissionReady
+                    ? _buildDownloadList()
+                    : _buildNoPermissionWarning()),
+      ),
+    );
+  }
+
+  Widget _buildDownloadList() => ListView(
+        padding: const EdgeInsets.symmetric(vertical: 16.0),
+        children: _items
+            .map((_ItemHolder item) => item.task == null
+                ? _buildListSection(item.name!)
+                : DownloadItem(
+                    data: item,
+                    onItemClick: (_TaskInfo? task) {
+                      _openDownloadedFile(task).then((bool success) {
+                        if (!success) {
+                          Scaffold.of(context).showSnackBar(const SnackBar(
+                              content: Text('Cannot open this file')));
+                        }
+                      });
+                    },
+                    onActionClick: (_TaskInfo task) {
+                      if (task.status == DownloadTaskStatus.undefined) {
+                        _requestDownload(task);
+                      } else if (task.status == DownloadTaskStatus.running) {
+                        _pauseDownload(task);
+                      } else if (task.status == DownloadTaskStatus.paused) {
+                        _resumeDownload(task);
+                      } else if (task.status == DownloadTaskStatus.complete) {
+                        _delete(task);
+                      } else if (task.status == DownloadTaskStatus.failed) {
+                        _retryDownload(task);
+                      }
+                    },
+                  ))
+            .toList(),
+      );
+
+  Widget _buildListSection(String title) => Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+        child: Text(
+          title,
+          style: const TextStyle(
+              fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 18.0),
         ),
-        theme: const NeumorphicThemeData(
-          baseColor: kprimaryColor,
-          depth: 10,
-          intensity: 0.5,
+      );
+
+  Widget _buildNoPermissionWarning() => Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24.0),
+              child: Text(
+                'Please grant accessing storage permission to continue -_-',
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.blueGrey, fontSize: 18.0),
+              ),
+            ),
+            const SizedBox(
+              height: 32.0,
+            ),
+            TextButton(
+                onPressed: () {
+                  _retryRequestPermission();
+                },
+                child: const Text(
+                  'Retry',
+                  style: TextStyle(
+                      color: Colors.blue,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20.0),
+                ))
+          ],
         ),
-        child: Scaffold(
-            backgroundColor: kprimaryColor,
-            appBar: myAppBar(
-              context,
-              'Downloads',
-              isNavBack.yes,
-              isDown.no,
-            )));
+      );
+
+  Future<void> _retryRequestPermission() async {
+    final bool hasGranted = await _checkPermission(Permission.storage);
+
+    if (hasGranted) {
+      await _prepareSaveDir();
+    }
+
+    setState(() {
+      _permissionReady = hasGranted;
+    });
+  }
+
+  void _requestDownload(_TaskInfo task) async {
+    task.taskId = await FlutterDownloader.enqueue(
+        url: task.link!,
+        headers: {"auth": "test_for_sql_encoding"},
+        savedDir: _localPath,
+        showNotification: true,
+        openFileFromNotification: true);
+  }
+
+  void _cancelDownload(_TaskInfo task) async {
+    await FlutterDownloader.cancel(taskId: task.taskId!);
+  }
+
+  void _pauseDownload(_TaskInfo task) async {
+    await FlutterDownloader.pause(taskId: task.taskId!);
+  }
+
+  void _resumeDownload(_TaskInfo task) async {
+    String? newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
+    task.taskId = newTaskId;
+  }
+
+  void _retryDownload(_TaskInfo task) async {
+    String? newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
+    task.taskId = newTaskId;
+  }
+
+  Future<bool> _openDownloadedFile(_TaskInfo? task) {
+    if (task != null) {
+      return FlutterDownloader.open(taskId: task.taskId!);
+    } else {
+      return Future.value(false);
+    }
+  }
+
+  /// ksjlfskd
+  void _delete(_TaskInfo task) async {
+    await FlutterDownloader.remove(
+        taskId: task.taskId!, shouldDeleteContent: true);
+    await _prepare();
+    setState(() {});
+  }
+
+  Future<bool> _checkPermission(Permission permission) async {
+    if (await permission.isGranted) {
+      return true;
+    } else {
+      final PermissionStatus result = await permission.request();
+      if (result == PermissionStatus.granted) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /// thumbnail shit
+
+  Future<Null> _prepare() async {
+    final List<DownloadTask>? tasks = await FlutterDownloader.loadTasks();
+
+    int count = 0;
+    _tasks = [];
+    _items = [];
+
+    _tasks!.addAll(_documents.map((document) =>
+        _TaskInfo(name: document['name'], link: document['link'])));
+
+    _items.add(_ItemHolder(name: 'Documents'));
+    for (int i = count; i < _tasks!.length; i++) {
+      _items.add(_ItemHolder(name: _tasks![i].name, task: _tasks![i]));
+      count++;
+    }
+
+    _tasks!.addAll(_images
+        .map((image) => _TaskInfo(name: image['name'], link: image['link'])));
+
+    _items.add(_ItemHolder(name: 'Images'));
+    for (int i = count; i < _tasks!.length; i++) {
+      _items.add(_ItemHolder(name: _tasks![i].name, task: _tasks![i]));
+      count++;
+    }
+
+    _tasks!.addAll(_videos
+        .map((video) => _TaskInfo(name: video['name'], link: video['link'])));
+
+    _items.add(_ItemHolder(name: 'Videos'));
+    for (int i = count; i < _tasks!.length; i++) {
+      _items.add(_ItemHolder(name: _tasks![i].name, task: _tasks![i]));
+      count++;
+    }
+
+    tasks!.forEach((DownloadTask task) {
+      for (final _TaskInfo info in _tasks!) {
+        if (info.link == task.url) {
+          info.taskId = task.taskId;
+          info.status = task.status;
+          info.progress = task.progress;
+        }
+      }
+    });
+
+    _permissionReady = await _checkPermission(Permission.storage);
+
+    if (_permissionReady) {
+      await _prepareSaveDir();
+    }
+
+    setState(() {
+      _isLoading = false;
+    });
+  }
+
+  Future<void> _prepareSaveDir() async {
+    _localPath = (await _findLocalPath())!;
+    final Directory savedDir = Directory(_localPath);
+    final bool hasExisted = await savedDir.exists();
+    if (!hasExisted) {
+      savedDir.create();
+    }
+  }
+
+  Future<String?> _findLocalPath() async {
+    /* var externalStorageDirPath; */
+    if (Platform.isAndroid) {
+      try {
+        /* print('permission granted'); */
+        directory = await getExternalStorageDirectory();
+        // Directory? tempDir = await getExternalStorageDirectory();
+
+        String newPath = '';
+        // debugPrint('this is direc$directory');
+        final List<String> paths = directory!.path.split('/');
+        for (int x = 1; x < paths.length; x++) {
+          final String folder = paths[x];
+          if (folder != 'Android') {
+            newPath += '/$folder';
+          } else {
+            break;
+          }
+        }
+        return '$newPath/Download';
+      } catch (e) {
+        directory = await getExternalStorageDirectory();
+
+        return directory!.path;
+      }
+    }
   }
 }
 
