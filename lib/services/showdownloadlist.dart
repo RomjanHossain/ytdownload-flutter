@@ -73,7 +73,11 @@ void showDownloadListo(
             Column(
               children: <Widget>[
                 NeumorphicButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    /// 1st-> get storage permission
+                    /// 2nd-> get download path
+                    /// 3rd-> download the file
+                  },
                   margin: const EdgeInsets.only(
                     top: 30,
                     left: 30,

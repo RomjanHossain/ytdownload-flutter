@@ -188,7 +188,7 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                                         listen: false)
                                     .myListssss[index]
                                     .thumbnails
-                                    .mediumResUrl as String
+                                    .mediumResUrl
                                 : snapshot.data[index].thumbnails.mediumResUrl
                                     as String,
                             fit: BoxFit.fitHeight,
@@ -213,7 +213,7 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                                               .duration as Duration,
                                         )
                                       : '00:00',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                   ))
                               : Text(
@@ -223,7 +223,7 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                                               as Duration,
                                         )
                                       : '00:00',
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                   )),
                         ),
@@ -264,7 +264,7 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                       widget.where == SearchTo.video
                           ? Provider.of<GetVideosFromYT>(context, listen: false)
                               .myListssss[index]
-                              .title as String
+                              .title
                           : snapshot.data[index].title as String,
                       // overflow: TextOverflow.ellipsis,
                       softWrap: true,

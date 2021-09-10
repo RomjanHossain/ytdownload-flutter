@@ -75,7 +75,7 @@ NeumorphicAppBar myAppBar(
           ),
         )
       else
-        SizedBox.shrink()
+        const SizedBox.shrink()
     ],
   );
 }
