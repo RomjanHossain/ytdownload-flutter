@@ -6,6 +6,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:ytdownload/models/ytmodel.dart';
 import 'package:ytdownload/utils/const.dart';
 import 'package:ytdownload/widgets/appbar.dart';
 
@@ -20,13 +21,18 @@ class DownloadPage extends StatefulWidget {
 
 class _DownloadPageState extends State<DownloadPage> {
   /// tasks
-  List<_TaskInfo>? _tasks;
+  List<YoutubeDownloadModel>? _tasks;
   Directory? directory;
   late List<_ItemHolder> _items;
   late bool _isLoading;
   late bool _permissionReady;
   late String _localPath;
   final ReceivePort _port = ReceivePort();
+  final List _documents = [];
+
+  final List _images = [];
+
+  final List _videos = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -64,8 +70,8 @@ class _DownloadPageState extends State<DownloadPage> {
       final int? progress = data[2];
 
       if (_tasks != null && _tasks!.isNotEmpty) {
-        final _TaskInfo task =
-            _tasks!.firstWhere((_TaskInfo task) => task.taskId == id);
+        final YoutubeDownloadModel task = _tasks!
+            .firstWhere((YoutubeDownloadModel task) => task.taskid == id);
         setState(() {
           task.status = status;
           task.progress = progress;
@@ -126,7 +132,7 @@ class _DownloadPageState extends State<DownloadPage> {
                 ? _buildListSection(item.name!)
                 : DownloadItem(
                     data: item,
-                    onItemClick: (_TaskInfo? task) {
+                    onItemClick: (YoutubeDownloadModel? task) {
                       _openDownloadedFile(task).then((bool success) {
                         if (!success) {
                           Scaffold.of(context).showSnackBar(const SnackBar(
@@ -134,7 +140,7 @@ class _DownloadPageState extends State<DownloadPage> {
                         }
                       });
                     },
-                    onActionClick: (_TaskInfo task) {
+                    onActionClick: (YoutubeDownloadModel task) {
                       if (task.status == DownloadTaskStatus.undefined) {
                         _requestDownload(task);
                       } else if (task.status == DownloadTaskStatus.running) {
@@ -202,45 +208,45 @@ class _DownloadPageState extends State<DownloadPage> {
     });
   }
 
-  void _requestDownload(_TaskInfo task) async {
-    task.taskId = await FlutterDownloader.enqueue(
-        url: task.link!,
+  void _requestDownload(YoutubeDownloadModel task) async {
+    task.taskid = await FlutterDownloader.enqueue(
+        url: task.url,
         headers: {"auth": "test_for_sql_encoding"},
         savedDir: _localPath,
         showNotification: true,
         openFileFromNotification: true);
   }
 
-  void _cancelDownload(_TaskInfo task) async {
-    await FlutterDownloader.cancel(taskId: task.taskId!);
+  void _cancelDownload(YoutubeDownloadModel task) async {
+    await FlutterDownloader.cancel(taskId: task.taskid!);
   }
 
-  void _pauseDownload(_TaskInfo task) async {
-    await FlutterDownloader.pause(taskId: task.taskId!);
+  void _pauseDownload(YoutubeDownloadModel task) async {
+    await FlutterDownloader.pause(taskId: task.taskid!);
   }
 
-  void _resumeDownload(_TaskInfo task) async {
-    String? newTaskId = await FlutterDownloader.resume(taskId: task.taskId!);
-    task.taskId = newTaskId;
+  void _resumeDownload(YoutubeDownloadModel task) async {
+    String? newTaskId = await FlutterDownloader.resume(taskId: task.taskid!);
+    task.taskid = newTaskId;
   }
 
-  void _retryDownload(_TaskInfo task) async {
-    String? newTaskId = await FlutterDownloader.retry(taskId: task.taskId!);
-    task.taskId = newTaskId;
+  void _retryDownload(YoutubeDownloadModel task) async {
+    String? newTaskId = await FlutterDownloader.retry(taskId: task.taskid!);
+    task.taskid = newTaskId;
   }
 
-  Future<bool> _openDownloadedFile(_TaskInfo? task) {
+  Future<bool> _openDownloadedFile(YoutubeDownloadModel? task) {
     if (task != null) {
-      return FlutterDownloader.open(taskId: task.taskId!);
+      return FlutterDownloader.open(taskId: task.taskid!);
     } else {
       return Future.value(false);
     }
   }
 
   /// ksjlfskd
-  void _delete(_TaskInfo task) async {
+  void _delete(YoutubeDownloadModel task) async {
     await FlutterDownloader.remove(
-        taskId: task.taskId!, shouldDeleteContent: true);
+        taskId: task.taskid!, shouldDeleteContent: true);
     await _prepare();
     setState(() {});
   }
@@ -259,44 +265,44 @@ class _DownloadPageState extends State<DownloadPage> {
 
   /// thumbnail shit
 
-  Future<Null> _prepare() async {
+  Future<void> _prepare() async {
     final List<DownloadTask>? tasks = await FlutterDownloader.loadTasks();
 
     int count = 0;
-    _tasks = [];
-    _items = [];
+    _tasks = <YoutubeDownloadModel>[];
+    _items = <_ItemHolder>[];
 
-    _tasks!.addAll(_documents.map((document) =>
-        _TaskInfo(name: document['name'], link: document['link'])));
+/*     _tasks!.addAll(_documents.map((document) => */
+/*   YoutubeDownloadModel(name: document['name'], link: document['link']))); */
+/*  */
+/*     _items.add(_ItemHolder(name: 'Documents')); */
+/*     for (int i = count; i < _tasks!.length; i++) { */
+/*       _items.add(_ItemHolder(name: _tasks![i].title, task: _tasks![i])); */
+/*       count++; */
+/*     } */
+/*  */
+/*     _tasks!.addAll(_images.map((image) => */
+/*         YoutubeDownloadModel(name: image['name'], link: image['link']))); */
+/*  */
+/*     _items.add(_ItemHolder(name: 'Images')); */
+/*     for (int i = count; i < _tasks!.length; i++) { */
+/*       _items.add(_ItemHolder(name: _tasks![i].title, task: _tasks![i])); */
+/*       count++; */
+/*     } */
 
-    _items.add(_ItemHolder(name: 'Documents'));
-    for (int i = count; i < _tasks!.length; i++) {
-      _items.add(_ItemHolder(name: _tasks![i].name, task: _tasks![i]));
-      count++;
-    }
-
-    _tasks!.addAll(_images
-        .map((image) => _TaskInfo(name: image['name'], link: image['link'])));
-
-    _items.add(_ItemHolder(name: 'Images'));
-    for (int i = count; i < _tasks!.length; i++) {
-      _items.add(_ItemHolder(name: _tasks![i].name, task: _tasks![i]));
-      count++;
-    }
-
-    _tasks!.addAll(_videos
-        .map((video) => _TaskInfo(name: video['name'], link: video['link'])));
+    _tasks!.addAll(_videos.map((video) =>
+        YoutubeDownloadModel(name: video['name'], link: video['link'])));
 
     _items.add(_ItemHolder(name: 'Videos'));
     for (int i = count; i < _tasks!.length; i++) {
-      _items.add(_ItemHolder(name: _tasks![i].name, task: _tasks![i]));
+      _items.add(_ItemHolder(name: _tasks![i].title, task: _tasks![i]));
       count++;
     }
 
     tasks!.forEach((DownloadTask task) {
-      for (final _TaskInfo info in _tasks!) {
-        if (info.link == task.url) {
-          info.taskId = task.taskId;
+      for (final YoutubeDownloadModel info in _tasks!) {
+        if (info.url == task.url) {
+          info.taskid = task.taskId;
           info.status = task.status;
           info.progress = task.progress;
         }
@@ -361,10 +367,10 @@ class DownloadItem extends StatelessWidget {
   final _ItemHolder? data;
 
   /// onclick
-  final Function(_TaskInfo?)? onItemClick;
+  final Function(YoutubeDownloadModel?)? onItemClick;
 
   /// on acktion
-  final Function(_TaskInfo)? onActionClick;
+  final Function(YoutubeDownloadModel)? onActionClick;
 
   @override
   Widget build(BuildContext context) {
@@ -416,7 +422,7 @@ class DownloadItem extends StatelessWidget {
     );
   }
 
-  Widget? _buildActionForTask(_TaskInfo task) {
+  Widget? _buildActionForTask(YoutubeDownloadModel task) {
     if (task.status == DownloadTaskStatus.undefined) {
       return RawMaterialButton(
         onPressed: () {
@@ -501,18 +507,8 @@ class DownloadItem extends StatelessWidget {
   }
 }
 
-class _TaskInfo {
-  _TaskInfo({this.name, this.link});
-  final String? name;
-  final String? link;
-
-  String? taskId;
-  int? progress = 0;
-  DownloadTaskStatus? status = DownloadTaskStatus.undefined;
-}
-
 class _ItemHolder {
   _ItemHolder({this.name, this.task});
   final String? name;
-  final _TaskInfo? task;
+  final YoutubeDownloadModel? task;
 }

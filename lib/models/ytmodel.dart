@@ -1,3 +1,4 @@
+import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:ytdownload/utils/const.dart';
 
@@ -35,4 +36,13 @@ class YoutubeDownloadModel {
 
   /// type
   final TypeDownload type;
+
+  /// int process
+  int? progress = 0;
+
+  /// task id
+  String? taskid;
+
+  /// downloading status
+  DownloadTaskStatus? status = DownloadTaskStatus.undefined;
 }

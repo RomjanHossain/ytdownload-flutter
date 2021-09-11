@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import 'package:ytdownload/models/ytmodel.dart';
+import 'package:ytdownload/services/provider/ytprovider.dart';
 import 'package:ytdownload/utils/audio.dart';
 import 'package:ytdownload/utils/const.dart';
 import 'package:ytdownload/utils/fullvid.dart';
@@ -77,6 +80,9 @@ void showDownloadListo(
                     /// 1st-> get storage permission
                     /// 2nd-> get download path
                     /// 3rd-> download the file
+                    Provider.of<YoutubeDownloadProvider>(context, listen: false)
+                        .additem(YoutubeDownloadModel(thumbHigh, title, 'High',
+                            '', thumbHigh, id, TypeDownload.thumbnail));
                   },
                   margin: const EdgeInsets.only(
                     top: 30,
@@ -96,7 +102,17 @@ void showDownloadListo(
                   ),
                 ),
                 NeumorphicButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<YoutubeDownloadProvider>(context, listen: false)
+                        .additem(YoutubeDownloadModel(
+                            thumbHigh,
+                            title,
+                            'Medium',
+                            '',
+                            thumbMid,
+                            id,
+                            TypeDownload.thumbnail));
+                  },
                   /* margin: const EdgeInsets.all(30), */
                   margin: const EdgeInsets.only(
                     top: 30,
@@ -116,7 +132,11 @@ void showDownloadListo(
                   ),
                 ),
                 NeumorphicButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Provider.of<YoutubeDownloadProvider>(context, listen: false)
+                        .additem(YoutubeDownloadModel(thumbLow, title, 'Law',
+                            '', thumbLow, id, TypeDownload.thumbnail));
+                  },
                   /* margin: const EdgeInsets.all(30), */
                   margin: const EdgeInsets.all(30),
                   padding: const EdgeInsets.all(10),

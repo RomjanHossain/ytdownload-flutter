@@ -6,7 +6,10 @@ import 'package:ytdownload/models/ytmodel.dart';
 /// my ytd model
 class YoutubeDownloadProvider extends ChangeNotifier {
   /// Internal, private state of the cart.
-  final List<YoutubeDownloadModel> _items = <YoutubeDownloadModel>[];
+  final List<YoutubeDownloadModel> iitems = <YoutubeDownloadModel>[];
+
+  ///full videosjfds
+  final List<YoutubeDownloadModel> _fulllvideos = <YoutubeDownloadModel>[];
 
   /// videos
   final List<YoutubeDownloadModel> _videos = <YoutubeDownloadModel>[];
@@ -19,7 +22,7 @@ class YoutubeDownloadProvider extends ChangeNotifier {
 
   /// An unmodifiable view of the items in the cart.
   UnmodifiableListView<YoutubeDownloadModel> get items =>
-      UnmodifiableListView<YoutubeDownloadModel>(_items);
+      UnmodifiableListView<YoutubeDownloadModel>(iitems);
 
   /// videos
   UnmodifiableListView<YoutubeDownloadModel> get videos =>
@@ -30,56 +33,73 @@ class YoutubeDownloadProvider extends ChangeNotifier {
       UnmodifiableListView<YoutubeDownloadModel>(_photos);
 
   /// audios
+  UnmodifiableListView<YoutubeDownloadModel> get fullvideos =>
+      UnmodifiableListView<YoutubeDownloadModel>(_fulllvideos);
+
+  /// audios
   UnmodifiableListView<YoutubeDownloadModel> get audios =>
       UnmodifiableListView<YoutubeDownloadModel>(_audios);
 
   /// The current total price of all items (assuming all items cost $42).
-  int get downloadsyt => _items.length;
+  int get downloadsyt => iitems.length;
 
   /// total download
-  int get totalDownload => _audios.length + _videos.length + _photos.length;
+  int get totalDownload =>
+      _audios.length +
+      _videos.length +
+      _photos.length +
+      _fulllvideos.length +
+      iitems.length;
 
   /// progress bar
-  List<double> prog = <double>[];
+  /* List<double> prog = <double>[]; */
 
   /// url
-  List<String> url = <String>[];
+  /* List<String> url = <String>[]; */
 
   /// path+name
-  List<String> pathName = <String>[];
+  /* List<String> pathName = <String>[]; */
 
-  /// cart from the outside.
-  void add(YoutubeDownloadModel item) {
-    _items.add(item);
+  /// from the outside.
+  void addThumbnail(YoutubeDownloadModel item) {
+    _photos.add(item);
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }
 
-  /// Removes all items from the cart.
+  /// add video noly
+  void addOnlyVideo(YoutubeDownloadModel item) {
+    _videos.add(item);
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
+  /// add full-videosj
+
+  void addFullvideoaudio(YoutubeDownloadModel item) {
+    _fulllvideos.add(item);
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
+  /// add audio only
+  void additem(YoutubeDownloadModel item) {
+    iitems.add(item);
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
+  /// add audio only
+  void addaudio(YoutubeDownloadModel item) {
+    _audios.add(item);
+    // This call tells the widgets that are listening to this model to rebuild.
+    notifyListeners();
+  }
+
+  /// Removes all items from the
   void removeAll() {
-    _items.clear();
+    iitems.clear();
     // This call tells the widgets that are listening to this model to rebuild.
-    notifyListeners();
-  }
-
-  /// adddwon
-  void adddownload(double item) {
-    prog.add(item);
-    // This call tells the widgets that are listening to this model to rebuild.
-    notifyListeners();
-  }
-
-  /// this is shit
-  void addUrl(String u) {
-    url.add(u);
-    notifyListeners();
-  }
-
-  /// this is shit
-  void addtoPathandName(String u, String p) {
-    // This call tells the widgets that are listening to this model to rebuild.
-    url.add(u);
-    pathName.add(p);
     notifyListeners();
   }
 }
