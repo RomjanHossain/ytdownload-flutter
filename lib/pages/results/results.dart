@@ -37,7 +37,8 @@ class ShowingResult extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: kprimaryColor,
-        appBar: myAppBar(context, query, isNavBack.yes, isDown.yes),
+        appBar:
+            myAppBar(context, query, isNavBack.yes, isDown.yes, isDispo.yes),
         body: ShowingListOfVideos(
           query: query,
           where: st,
@@ -154,7 +155,7 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
             controller: controller,
             itemCount: snapshot.data.length as int,
             itemBuilder: (BuildContext context, int index) {
-              print('has dagta-> ${snapshot.data[index].title}');
+              // print('has dagta-> ${snapshot.data[index].title}');
               return Neumorphic(
                 margin: const EdgeInsets.all(10),
                 padding: const EdgeInsets.symmetric(

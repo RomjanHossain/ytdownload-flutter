@@ -31,6 +31,7 @@ class MyHomePage extends StatelessWidget {
           'Youtube Downloader',
           isNavBack.no,
           isDown.yes,
+          isDispo.no,
         ),
         body: MyBody(),
       ),

@@ -12,6 +12,7 @@ NeumorphicAppBar myAppBar(
   String title,
   isNavBack back,
   isDown down,
+  isDispo dispo,
 ) {
   return NeumorphicAppBar(
     color: kprimaryColor,
@@ -47,7 +48,9 @@ NeumorphicAppBar myAppBar(
               intensity: 0.6,
             ),
             onPressed: () {
-              Provider.of<GetVideosFromYT>(context, listen: false).dispoo();
+              if (dispo == isDispo.yes) {
+                Provider.of<GetVideosFromYT>(context, listen: false).dispoo();
+              }
               Navigator.pop(context);
             },
             child: const Icon(Icons.navigate_before))
@@ -66,7 +69,7 @@ NeumorphicAppBar myAppBar(
           onPressed: () {
             Navigator.push(
                 context,
-                MaterialPageRoute(
+                MaterialPageRoute<dynamic>(
                     builder: (BuildContext context) => const DownloadPage()));
           },
           child: const Icon(

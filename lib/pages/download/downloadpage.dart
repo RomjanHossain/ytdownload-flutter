@@ -6,20 +6,77 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
+// import 'package:provider/provider.dart';
 import 'package:ytdownload/models/ytmodel.dart';
+import 'package:ytdownload/services/provider/ytprovider.dart';
+// import 'package:ytdownload/services/provider/ytprovider.dart';
 import 'package:ytdownload/utils/const.dart';
 import 'package:ytdownload/widgets/appbar.dart';
 
-/// download page
-class DownloadPage extends StatefulWidget {
-  /// constratro
+/// shiting page
+class DownloadPage extends StatelessWidget {
+  /// shiting page
   const DownloadPage({Key? key}) : super(key: key);
 
   @override
-  _DownloadPageState createState() => _DownloadPageState();
+  Widget build(BuildContext context) {
+    return NeumorphicTheme(
+      themeMode: ThemeMode.light,
+      darkTheme: const NeumorphicThemeData(
+        baseColor: NeumorphicColors.darkBackground,
+        accentColor: NeumorphicColors.darkAccent,
+        depth: 6,
+        intensity: 0.3,
+      ),
+      theme: const NeumorphicThemeData(
+        baseColor: kprimaryColor,
+        depth: 10,
+        intensity: 0.5,
+      ),
+      child: Scaffold(
+        backgroundColor: kprimaryColor,
+        appBar: myAppBar(
+            context, 'Downloads', isNavBack.yes, isDown.no, isDispo.no),
+        body: Provider.of<YoutubeDownloadProvider>(context, listen: true)
+                .iitems
+                .isNotEmpty
+            ? DownloadPageItem(
+                context: context,
+              )
+            : Center(
+                child: Text(
+                  'No Downloads Yet',
+                  style: Theme.of(context).textTheme.headline5!.copyWith(
+                        /* fontStyle: FontStyle.italic, */
+                        fontWeight: FontWeight.w100,
+                      ),
+
+                  /* textAlign: TextAlign.center, */
+                ),
+              ),
+      ),
+    );
+  }
 }
 
-class _DownloadPageState extends State<DownloadPage> {
+/// download page
+class DownloadPageItem extends StatefulWidget {
+  /// constratro
+
+  const DownloadPageItem({
+    Key? key,
+    required this.context,
+  }) : super(key: key);
+
+  /// connnn
+  final BuildContext context;
+
+  @override
+  _DownloadPageItemState createState() => _DownloadPageItemState();
+}
+
+class _DownloadPageItemState extends State<DownloadPageItem> {
   /// tasks
   List<YoutubeDownloadModel>? _tasks;
   Directory? directory;
@@ -28,11 +85,6 @@ class _DownloadPageState extends State<DownloadPage> {
   late bool _permissionReady;
   late String _localPath;
   final ReceivePort _port = ReceivePort();
-  final List _documents = [];
-
-  final List _images = [];
-
-  final List _videos = [];
   @override
   void initState() {
     // TODO: implement initState
@@ -44,7 +96,7 @@ class _DownloadPageState extends State<DownloadPage> {
     _isLoading = true;
     _permissionReady = false;
 
-    _prepare();
+    _prepare(widget.context);
   }
 
   @override
@@ -97,32 +149,14 @@ class _DownloadPageState extends State<DownloadPage> {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      darkTheme: const NeumorphicThemeData(
-        baseColor: NeumorphicColors.darkBackground,
-        accentColor: NeumorphicColors.darkAccent,
-        depth: 6,
-        intensity: 0.3,
-      ),
-      theme: const NeumorphicThemeData(
-        baseColor: kprimaryColor,
-        depth: 10,
-        intensity: 0.5,
-      ),
-      child: Scaffold(
-        backgroundColor: kprimaryColor,
-        appBar: myAppBar(context, 'Downloads', isNavBack.yes, isDown.no),
-        body: Builder(
-            builder: (BuildContext context) => _isLoading
-                ? const Center(
-                    child: CircularProgressIndicator(),
-                  )
-                : _permissionReady
-                    ? _buildDownloadList()
-                    : _buildNoPermissionWarning()),
-      ),
-    );
+    return Builder(
+        builder: (BuildContext context) => _isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : _permissionReady
+                ? _buildDownloadList()
+                : _buildNoPermissionWarning());
   }
 
   Widget _buildDownloadList() => ListView(
@@ -135,8 +169,9 @@ class _DownloadPageState extends State<DownloadPage> {
                     onItemClick: (YoutubeDownloadModel? task) {
                       _openDownloadedFile(task).then((bool success) {
                         if (!success) {
-                          Scaffold.of(context).showSnackBar(const SnackBar(
-                              content: Text('Cannot open this file')));
+                          ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('cannot open this file')));
                         }
                       });
                     },
@@ -208,30 +243,30 @@ class _DownloadPageState extends State<DownloadPage> {
     });
   }
 
-  void _requestDownload(YoutubeDownloadModel task) async {
+  Future<void> _requestDownload(YoutubeDownloadModel task) async {
     task.taskid = await FlutterDownloader.enqueue(
         url: task.url,
-        headers: {"auth": "test_for_sql_encoding"},
-        savedDir: _localPath,
-        showNotification: true,
-        openFileFromNotification: true);
+        headers: {'auth': 'test_for_sql_encoding'},
+        savedDir: _localPath);
   }
 
-  void _cancelDownload(YoutubeDownloadModel task) async {
+  Future<void> _cancelDownload(YoutubeDownloadModel task) async {
     await FlutterDownloader.cancel(taskId: task.taskid!);
   }
 
-  void _pauseDownload(YoutubeDownloadModel task) async {
+  Future<void> _pauseDownload(YoutubeDownloadModel task) async {
     await FlutterDownloader.pause(taskId: task.taskid!);
   }
 
-  void _resumeDownload(YoutubeDownloadModel task) async {
-    String? newTaskId = await FlutterDownloader.resume(taskId: task.taskid!);
+  Future<void> _resumeDownload(YoutubeDownloadModel task) async {
+    final String? newTaskId =
+        await FlutterDownloader.resume(taskId: task.taskid!);
     task.taskid = newTaskId;
   }
 
-  void _retryDownload(YoutubeDownloadModel task) async {
-    String? newTaskId = await FlutterDownloader.retry(taskId: task.taskid!);
+  Future<void> _retryDownload(YoutubeDownloadModel task) async {
+    final String? newTaskId =
+        await FlutterDownloader.retry(taskId: task.taskid!);
     task.taskid = newTaskId;
   }
 
@@ -244,10 +279,10 @@ class _DownloadPageState extends State<DownloadPage> {
   }
 
   /// ksjlfskd
-  void _delete(YoutubeDownloadModel task) async {
+  Future<void> _delete(YoutubeDownloadModel task) async {
     await FlutterDownloader.remove(
         taskId: task.taskid!, shouldDeleteContent: true);
-    await _prepare();
+    await _prepare(widget.context);
     setState(() {});
   }
 
@@ -265,7 +300,7 @@ class _DownloadPageState extends State<DownloadPage> {
 
   /// thumbnail shit
 
-  Future<void> _prepare() async {
+  Future<void> _prepare(BuildContext context) async {
     final List<DownloadTask>? tasks = await FlutterDownloader.loadTasks();
 
     int count = 0;
@@ -290,8 +325,11 @@ class _DownloadPageState extends State<DownloadPage> {
 /*       count++; */
 /*     } */
 
-    _tasks!.addAll(_videos.map((video) =>
-        YoutubeDownloadModel(name: video['name'], link: video['link'])));
+    _tasks!.addAll(
+        Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
+            .iitems);
+    /* _tasks!.addAll(_videos.map((video) => */
+    /*     YoutubeDownloadModel(name: video['name'], link: video['link']))); */
 
     _items.add(_ItemHolder(name: 'Videos'));
     for (int i = count; i < _tasks!.length; i++) {

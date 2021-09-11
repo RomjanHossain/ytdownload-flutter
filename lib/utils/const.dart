@@ -23,6 +23,15 @@ enum isNavBack {
 }
 
 ///sdf
+enum isDispo {
+  ///
+  yes,
+
+  ///
+  no,
+}
+
+///sdf
 enum isDown {
   ///
   yes,
