@@ -6,7 +6,7 @@ import 'package:ytdownload/models/ytmodel.dart';
 /// my ytd model
 class YoutubeDownloadProvider extends ChangeNotifier {
   /// Internal, private state of the cart.
-  final List<YoutubeDownloadModel> iitems = <YoutubeDownloadModel>[];
+  final List<YoutubeDownloadModel> _iitems = <YoutubeDownloadModel>[];
 
   ///full videosjfds
   final List<YoutubeDownloadModel> _fulllvideos = <YoutubeDownloadModel>[];
@@ -22,7 +22,7 @@ class YoutubeDownloadProvider extends ChangeNotifier {
 
   /// An unmodifiable view of the items in the cart.
   UnmodifiableListView<YoutubeDownloadModel> get items =>
-      UnmodifiableListView<YoutubeDownloadModel>(iitems);
+      UnmodifiableListView<YoutubeDownloadModel>(_iitems);
 
   /// videos
   UnmodifiableListView<YoutubeDownloadModel> get videos =>
@@ -41,7 +41,7 @@ class YoutubeDownloadProvider extends ChangeNotifier {
       UnmodifiableListView<YoutubeDownloadModel>(_audios);
 
   /// The current total price of all items (assuming all items cost $42).
-  int get downloadsyt => iitems.length;
+  int get downloadsyt => _iitems.length;
 
   /// total download
   int get totalDownload =>
@@ -49,7 +49,7 @@ class YoutubeDownloadProvider extends ChangeNotifier {
       _videos.length +
       _photos.length +
       _fulllvideos.length +
-      iitems.length;
+      _iitems.length;
 
   /// progress bar
   /* List<double> prog = <double>[]; */
@@ -84,7 +84,7 @@ class YoutubeDownloadProvider extends ChangeNotifier {
 
   /// add audio only
   void additem(YoutubeDownloadModel item) {
-    iitems.add(item);
+    _iitems.add(item);
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }
@@ -98,7 +98,7 @@ class YoutubeDownloadProvider extends ChangeNotifier {
 
   /// Removes all items from the
   void removeAll() {
-    iitems.clear();
+    _iitems.clear();
     // This call tells the widgets that are listening to this model to rebuild.
     notifyListeners();
   }
