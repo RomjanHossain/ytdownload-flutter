@@ -56,7 +56,7 @@ Future<List<Widget>> getAudio(
     final String _ext = _sp[1].substring(_sp[1].length - 2);
     audwid.add(NeumorphicButton(
       onPressed: () {
-        print('pressed only vid shit');
+        /* print('pressed only vid shit'); */
         Provider.of<YoutubeDownloadProvider>(context, listen: false).addaudio(
             YoutubeDownloadModel(thumbMid, title, i.audioCodec.toString(),
                 'loc', i.url.toString(), id, TypeDownload.audio));

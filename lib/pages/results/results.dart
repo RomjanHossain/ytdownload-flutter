@@ -87,7 +87,9 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
       Provider.of<GetVideosFromYT>(context, listen: false)
           .forfutureChannelVideos(widget.query)
           .then((value) {
-        setState(() {});
+        Future.delayed(const Duration(seconds: 3)).then((value) {
+          setState(() {});
+        });
       });
     }
     // setState(() {});
@@ -117,7 +119,7 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
             .nextVideosFromChannel();
       }
       setState(() {});
-      print('the end2');
+      /* print('the end2'); */
     }
   }
 
@@ -254,7 +256,7 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                                         as String,
                                     snapshot.data[index].thumbnails.highResUrl
                                         as String);
-                                print('ooooooo');
+                                /* print('ooooooo'); */
                               },
                             ),
                           ),

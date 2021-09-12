@@ -90,8 +90,8 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
   static void downloadCallback(
       String id, DownloadTaskStatus status, int progress) {
     if (true) {
-      print(
-          'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)');
+      /* print( */
+      /* 'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)'); */
     }
     final SendPort send =
         IsolateNameServer.lookupPortByName('downloader_send_port')!;
