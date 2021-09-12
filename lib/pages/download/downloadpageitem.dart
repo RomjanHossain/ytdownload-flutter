@@ -296,8 +296,6 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
     _tasks!.addAll(
         Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
             .videos);
-    /* _tasks!.addAll(_videos.map((video) => */
-    /*     YoutubeDownloadModel(name: video['name'], link: video['link']))); */
 
     _items.add(_ItemHolder(name: 'Only Videos'));
     for (int i = count; i < _tasks!.length; i++) {

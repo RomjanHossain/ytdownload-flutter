@@ -31,8 +31,8 @@ class DownloadPage extends StatelessWidget {
         appBar: myAppBar(
             context, 'Downloads', isNavBack.yes, isDown.no, isDispo.no),
         body: Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                .items
-                .isNotEmpty
+                    .totalDownload >
+                0
             ? DownloadPageItem(
                 context: context,
               )

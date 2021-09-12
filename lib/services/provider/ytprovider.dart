@@ -6,7 +6,7 @@ import 'package:ytdownload/models/ytmodel.dart';
 /// my ytd model
 class YoutubeDownloadProvider extends ChangeNotifier {
   /// Internal, private state of the cart.
-  final List<YoutubeDownloadModel> _iitems = <YoutubeDownloadModel>[];
+  /* final List<YoutubeDownloadModel> _iitems = <YoutubeDownloadModel>[]; */
 
   ///full videosjfds
   final List<YoutubeDownloadModel> _fulllvideos = <YoutubeDownloadModel>[];
@@ -21,8 +21,8 @@ class YoutubeDownloadProvider extends ChangeNotifier {
   final List<YoutubeDownloadModel> _audios = <YoutubeDownloadModel>[];
 
   /// An unmodifiable view of the items in the cart.
-  UnmodifiableListView<YoutubeDownloadModel> get items =>
-      UnmodifiableListView<YoutubeDownloadModel>(_iitems);
+  /* UnmodifiableListView<YoutubeDownloadModel> get items => */
+  /*     UnmodifiableListView<YoutubeDownloadModel>(_iitems); */
 
   /// videos
   UnmodifiableListView<YoutubeDownloadModel> get videos =>
@@ -41,15 +41,11 @@ class YoutubeDownloadProvider extends ChangeNotifier {
       UnmodifiableListView<YoutubeDownloadModel>(_audios);
 
   /// The current total price of all items (assuming all items cost $42).
-  int get downloadsyt => _iitems.length;
+  /* int get downloadsyt => _iitems.length; */
 
   /// total download
   int get totalDownload =>
-      _audios.length +
-      _videos.length +
-      _photos.length +
-      _fulllvideos.length +
-      _iitems.length;
+      _audios.length + _videos.length + _photos.length + _fulllvideos.length;
 
   /// progress bar
   /* List<double> prog = <double>[]; */
@@ -83,11 +79,11 @@ class YoutubeDownloadProvider extends ChangeNotifier {
   }
 
   /// add audio only
-  void additem(YoutubeDownloadModel item) {
-    _iitems.add(item);
-    // This call tells the widgets that are listening to this model to rebuild.
-    notifyListeners();
-  }
+  /* void additem(YoutubeDownloadModel item) { */
+  /*   _iitems.add(item); */
+  /*   // This call tells the widgets that are listening to this model to rebuild. */
+  /*   notifyListeners(); */
+  /* } */
 
   /// add audio only
   void addaudio(YoutubeDownloadModel item) {
@@ -97,9 +93,9 @@ class YoutubeDownloadProvider extends ChangeNotifier {
   }
 
   /// Removes all items from the
-  void removeAll() {
-    _iitems.clear();
-    // This call tells the widgets that are listening to this model to rebuild.
-    notifyListeners();
-  }
+  /* void removeAll() { */
+  /*   _iitems.clear(); */
+  /*   // This call tells the widgets that are listening to this model to rebuild. */
+  /*   notifyListeners(); */
+  /* } */
 }
