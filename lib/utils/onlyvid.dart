@@ -11,7 +11,7 @@ Future<List<Widget>> getVideo(
   final YoutubeExplode yt = YoutubeExplode();
   final List<Widget> vidwid = <Widget>[];
   final StreamManifest manifest = await yt.videos.streamsClient.getManifest(id);
-  for (final VideoStreamInfo i in manifest.video) {
+  for (final VideoStreamInfo i in manifest.videoOnly) {
     final List<String> _sp = i.size.toString().split('.');
     /* print('this is sp $_sp'); */
     final String _f = _sp[0];

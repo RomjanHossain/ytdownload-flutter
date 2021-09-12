@@ -49,7 +49,7 @@ Future<List<Widget>> getfullvideo(
   final List<Widget> fullwid = <Widget>[];
   final StreamManifest manifest = await yt.videos.streamsClient.getManifest(id);
 
-  for (final VideoStreamInfo i in manifest.video) {
+  for (final VideoStreamInfo i in manifest.muxed) {
     final List<String> _sp = i.size.toString().split('.');
     final String _f = _sp[0];
     final String _l = _sp[1].substring(0, 2);

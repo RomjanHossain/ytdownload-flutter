@@ -49,7 +49,7 @@ Future<List<Widget>> getAudio(
   final YoutubeExplode yt = YoutubeExplode();
   final List<Widget> audwid = <Widget>[];
   final StreamManifest manifest = await yt.videos.streamsClient.getManifest(id);
-  for (final AudioStreamInfo i in manifest.audio) {
+  for (final AudioStreamInfo i in manifest.audioOnly) {
     final List<String> _sp = i.size.toString().split('.');
     final String _f = _sp[0];
     final String _l = _sp[1].substring(0, 2);
