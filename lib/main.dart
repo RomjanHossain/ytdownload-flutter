@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Awesome Youtube Downloader',
       theme: ThemeData(
         textTheme: GoogleFonts.openSansTextTheme(

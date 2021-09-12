@@ -9,6 +9,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 import 'package:ytdownload/models/ytmodel.dart';
 import 'package:ytdownload/services/provider/ytprovider.dart';
+import 'package:ytdownload/utils/const.dart';
 
 /// download page
 class DownloadPageItem extends StatefulWidget {
@@ -196,10 +197,22 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
   }
 
   Future<void> _requestDownload(YoutubeDownloadModel task) async {
+    String _ext;
+    if (task.type == TypeDownload.audio) {
+      _ext = 'mp3';
+    } else if (task.type == TypeDownload.video ||
+        task.type == TypeDownload.fullvideo) {
+      _ext = 'mp4';
+    } else {
+      _ext = 'jpg';
+    }
     task.taskid = await FlutterDownloader.enqueue(
-        url: task.url,
-        headers: {'auth': 'test_for_sql_encoding'},
-        savedDir: _localPath);
+      url: task.url,
+      headers: {'auth': 'test_for_sql_encoding'},
+      savedDir: _localPath,
+      /* fileName:  */
+      fileName: '${task.title}.$_ext',
+    );
   }
 
   Future<void> _cancelDownload(YoutubeDownloadModel task) async {
