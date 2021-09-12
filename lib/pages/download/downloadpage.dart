@@ -38,8 +38,8 @@ class DownloadPage extends StatelessWidget {
         backgroundColor: kprimaryColor,
         appBar: myAppBar(
             context, 'Downloads', isNavBack.yes, isDown.no, isDispo.no),
-        body: Provider.of<YoutubeDownloadProvider>(context, listen: true)
-                .iitems
+        body: Provider.of<YoutubeDownloadProvider>(context, listen: false)
+                .items
                 .isNotEmpty
             ? DownloadPageItem(
                 context: context,
@@ -327,7 +327,7 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
 
     _tasks!.addAll(
         Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
-            .iitems);
+            .items);
     /* _tasks!.addAll(_videos.map((video) => */
     /*     YoutubeDownloadModel(name: video['name'], link: video['link']))); */
 
