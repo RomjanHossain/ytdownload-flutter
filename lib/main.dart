@@ -39,6 +39,6 @@ class MyApp extends StatelessWidget {
 Future<void> _initDownloader() async {
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(
-      debug: true // optional: set false to disable printing logs to console
+      /* debug: true // optional: set false to disable printing logs to console */
       );
 }
