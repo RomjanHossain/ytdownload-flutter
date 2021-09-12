@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import 'package:ytdownload/models/ytmodel.dart';
+import 'package:ytdownload/services/provider/ytprovider.dart';
+import 'package:ytdownload/utils/const.dart';
 
 /// get audiowidgets
 FutureBuilder<List<Widget>> audioWidgets(
@@ -52,7 +55,13 @@ Future<List<Widget>> getAudio(
     final String _l = _sp[1].substring(0, 2);
     final String _ext = _sp[1].substring(_sp[1].length - 2);
     audwid.add(NeumorphicButton(
-      onPressed: () {},
+      onPressed: () {
+        print('pressed only vid shit');
+        Provider.of<YoutubeDownloadProvider>(context, listen: false).addaudio(
+            YoutubeDownloadModel(thumbMid, title, i.audioCodec.toString(),
+                'loc', i.url.toString(), id, TypeDownload.audio));
+        Navigator.pop(context);
+      },
       margin: const EdgeInsets.only(
         top: 30,
         left: 30,

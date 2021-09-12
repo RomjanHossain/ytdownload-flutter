@@ -20,9 +20,15 @@ Future<List<Widget>> getVideo(
     vidwid.add(NeumorphicButton(
       onPressed: () {
         print('pressed only vid shit');
-        Provider.of<YoutubeDownloadProvider>(context, listen: false).addaudio(
-            YoutubeDownloadModel(thumbMid, title, i.videoQuality.toString(),
-                'loc', i.url.toString(), id, TypeDownload.video));
+        Provider.of<YoutubeDownloadProvider>(context, listen: false)
+            .addOnlyVideo(YoutubeDownloadModel(
+                thumbMid,
+                title,
+                i.videoQuality.toString(),
+                'loc',
+                i.url.toString(),
+                id,
+                TypeDownload.video));
         Navigator.pop(context);
       },
       margin: const EdgeInsets.only(

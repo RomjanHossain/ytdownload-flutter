@@ -472,7 +472,6 @@ class DownloadItem extends StatelessWidget {
           onActionClick!(task);
         },
         /* shape: const CircleBorder(), */
-        /* constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0), */
         child: const Icon(LineIcons.download),
       );
     } else if (task.status == DownloadTaskStatus.running) {
@@ -481,7 +480,6 @@ class DownloadItem extends StatelessWidget {
           onActionClick!(task);
         },
         /* shape: const CircleBorder(), */
-        /* constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0), */
         child: const Icon(
           Icons.pause,
           color: Colors.red,
@@ -493,7 +491,6 @@ class DownloadItem extends StatelessWidget {
           onActionClick!(task);
         },
         /* shape: const CircleBorder(), */
-        /* constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0), */
         child: const Icon(
           Icons.play_arrow,
           color: Colors.green,
@@ -513,7 +510,6 @@ class DownloadItem extends StatelessWidget {
               onActionClick!(task);
             },
             /* shape: const CircleBorder(), */
-            /* constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0), */
             child: const Icon(
               Icons.delete_forever,
               color: Colors.red,
@@ -534,7 +530,6 @@ class DownloadItem extends StatelessWidget {
               onActionClick!(task);
             },
             /* shape: const CircleBorder(), */
-            /* constraints: const BoxConstraints(minHeight: 32.0, minWidth: 32.0), */
             child: const Icon(
               Icons.refresh,
               color: Colors.green,
