@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:ytdownload/pages/home/homepage.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:ytdownload/services/getvidyt.dart';
-import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:ytdownload/services/provider/ytprovider.dart';
 
 void main() {
   _initDownloader();
-  runApp(MultiProvider(providers: [
-    ChangeNotifierProvider<GetVideosFromYT>(
-        create: (BuildContext context) => GetVideosFromYT()),
-    ChangeNotifierProvider<YoutubeDownloadProvider>(
-        create: (BuildContext context) => YoutubeDownloadProvider()),
-  ], child: MyApp()));
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider<GetVideosFromYT>(
+          create: (BuildContext context) => GetVideosFromYT(),
+        ),
+        ChangeNotifierProvider<YoutubeDownloadProvider>(
+          create: (BuildContext context) => YoutubeDownloadProvider(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 /// my init app

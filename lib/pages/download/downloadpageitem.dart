@@ -58,7 +58,9 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
 
   void _bindBackgroundIsolate() {
     final bool isSuccess = IsolateNameServer.registerPortWithName(
-        _port.sendPort, 'downloader_send_port');
+      _port.sendPort,
+      'downloader_send_port',
+    );
     if (!isSuccess) {
       _unbindBackgroundIsolate();
       _bindBackgroundIsolate();
@@ -66,7 +68,7 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
     }
     _port.listen((dynamic data) {
       if (true) {
-        print('UI Isolate Callback: $data');
+        /* print('UI Isolate Callback: $data'); */
       }
       final String? id = data[0];
       final DownloadTaskStatus? status = data[1];
@@ -88,7 +90,10 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
   }
 
   static void downloadCallback(
-      String id, DownloadTaskStatus status, int progress) {
+    String id,
+    DownloadTaskStatus status,
+    int progress,
+  ) {
     if (true) {
       /* print( */
       /* 'Background Isolate Callback: task ($id) is in status ($status) and process ($progress)'); */
@@ -101,46 +106,51 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
   @override
   Widget build(BuildContext context) {
     return Builder(
-        builder: (BuildContext context) => _isLoading
-            ? const Center(
-                child: CircularProgressIndicator(),
-              )
-            : _permissionReady
-                ? _buildDownloadList()
-                : _buildNoPermissionWarning());
+      builder: (BuildContext context) => _isLoading
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : _permissionReady
+              ? _buildDownloadList()
+              : _buildNoPermissionWarning(),
+    );
   }
 
   Widget _buildDownloadList() => ListView(
         padding: const EdgeInsets.symmetric(vertical: 16.0),
         physics: const BouncingScrollPhysics(),
         children: _items
-            .map((_ItemHolder item) => item.task == null
-                ? _buildListSection(item.name!)
-                : DownloadItem(
-                    data: item,
-                    onItemClick: (YoutubeDownloadModel? task) {
-                      _openDownloadedFile(task).then((bool success) {
-                        if (!success) {
-                          ScaffoldMessenger.of(context).showSnackBar(
+            .map(
+              (_ItemHolder item) => item.task == null
+                  ? _buildListSection(item.name!)
+                  : DownloadItem(
+                      data: item,
+                      onItemClick: (YoutubeDownloadModel? task) {
+                        _openDownloadedFile(task).then((bool success) {
+                          if (!success) {
+                            ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
-                                  content: Text('cannot open this file')));
+                                content: Text('cannot open this file'),
+                              ),
+                            );
+                          }
+                        });
+                      },
+                      onActionClick: (YoutubeDownloadModel task) {
+                        if (task.status == DownloadTaskStatus.undefined) {
+                          _requestDownload(task);
+                        } else if (task.status == DownloadTaskStatus.running) {
+                          _pauseDownload(task);
+                        } else if (task.status == DownloadTaskStatus.paused) {
+                          _resumeDownload(task);
+                        } else if (task.status == DownloadTaskStatus.complete) {
+                          _delete(task);
+                        } else if (task.status == DownloadTaskStatus.failed) {
+                          _retryDownload(task);
                         }
-                      });
-                    },
-                    onActionClick: (YoutubeDownloadModel task) {
-                      if (task.status == DownloadTaskStatus.undefined) {
-                        _requestDownload(task);
-                      } else if (task.status == DownloadTaskStatus.running) {
-                        _pauseDownload(task);
-                      } else if (task.status == DownloadTaskStatus.paused) {
-                        _resumeDownload(task);
-                      } else if (task.status == DownloadTaskStatus.complete) {
-                        _delete(task);
-                      } else if (task.status == DownloadTaskStatus.failed) {
-                        _retryDownload(task);
-                      }
-                    },
-                  ))
+                      },
+                    ),
+            )
             .toList(),
       );
 
@@ -149,7 +159,10 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
         child: Text(
           title,
           style: const TextStyle(
-              fontWeight: FontWeight.bold, color: Colors.blue, fontSize: 18.0),
+            fontWeight: FontWeight.bold,
+            color: Colors.blue,
+            fontSize: 18.0,
+          ),
           textAlign: TextAlign.center,
         ),
       );
@@ -170,16 +183,18 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
               height: 32.0,
             ),
             TextButton(
-                onPressed: () {
-                  _retryRequestPermission();
-                },
-                child: const Text(
-                  'Retry',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 20.0),
-                ))
+              onPressed: () {
+                _retryRequestPermission();
+              },
+              child: const Text(
+                'Retry',
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                ),
+              ),
+            )
           ],
         ),
       );
@@ -246,7 +261,9 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
   /// ksjlfskd
   Future<void> _delete(YoutubeDownloadModel task) async {
     await FlutterDownloader.remove(
-        taskId: task.taskid!, shouldDeleteContent: true);
+      taskId: task.taskid!,
+      shouldDeleteContent: true,
+    );
     await _prepare(widget.context);
     setState(() {});
   }
@@ -290,8 +307,9 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
     }
 
     _tasks!.addAll(
-        Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
-            .photos);
+      Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
+          .photos,
+    );
 
     _items.add(_ItemHolder(name: 'Thumbnails'));
     for (int i = count; i < _tasks!.length; i++) {
@@ -307,8 +325,9 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
     }
 
     _tasks!.addAll(
-        Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
-            .videos);
+      Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
+          .videos,
+    );
 
     _items.add(_ItemHolder(name: 'Only Videos'));
     for (int i = count; i < _tasks!.length; i++) {
@@ -324,8 +343,9 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
     }
 
     _tasks!.addAll(
-        Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
-            .fullvideos);
+      Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
+          .fullvideos,
+    );
     /* _tasks!.addAll(_videos.map((video) => */
     /*     YoutubeDownloadModel(name: video['name'], link: video['link']))); */
 
@@ -342,7 +362,7 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
       count++;
     }
 
-    tasks!.forEach((DownloadTask task) {
+    for (final task in tasks!) {
       for (final YoutubeDownloadModel info in _tasks!) {
         if (info.url == task.url) {
           info.taskid = task.taskId;
@@ -350,7 +370,7 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
           info.progress = task.progress;
         }
       }
-    });
+    }
 
     _permissionReady = await _checkPermission(Permission.storage);
 

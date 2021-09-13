@@ -29,7 +29,12 @@ class DownloadPage extends StatelessWidget {
       child: Scaffold(
         backgroundColor: kprimaryColor,
         appBar: myAppBar(
-            context, 'Downloads', isNavBack.yes, isDown.no, isDispo.no),
+          context,
+          'Downloads',
+          isNavBack.yes,
+          isDown.no,
+          isDispo.no,
+        ),
         body: Provider.of<YoutubeDownloadProvider>(context, listen: false)
                     .totalDownload >
                 0

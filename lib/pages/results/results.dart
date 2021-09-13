@@ -1,11 +1,11 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:line_icons/line_icons.dart';
+import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:ytdownload/services/getvidyt.dart';
 import 'package:ytdownload/services/showdownloadlist.dart';
 import 'package:ytdownload/utils/const.dart';
 import 'package:ytdownload/widgets/appbar.dart';
-import 'package:provider/provider.dart';
 
 /// view search result
 
@@ -54,9 +54,11 @@ class ShowingResult extends StatelessWidget {
 /// showing list of videos
 class ShowingListOfVideos extends StatefulWidget {
   /// constractor
-  const ShowingListOfVideos(
-      {Key? key, required this.query, required this.where})
-      : super(key: key);
+  const ShowingListOfVideos({
+    Key? key,
+    required this.query,
+    required this.where,
+  }) : super(key: key);
 
   /// shitksldkf
   final String query;
@@ -183,15 +185,15 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                             intensity: 0.30,
                             shape: NeumorphicShape.concave,
                             boxShape: NeumorphicBoxShape.roundRect(
-                                BorderRadius.circular(10)),
+                              BorderRadius.circular(10),
+                            ),
                           ),
                           child: Image.network(
                             widget.where == SearchTo.video
-                                ? Provider.of<GetVideosFromYT>(context,
-                                        listen: false)
-                                    .myListssss[index]
-                                    .thumbnails
-                                    .mediumResUrl
+                                ? Provider.of<GetVideosFromYT>(
+                                    context,
+                                    listen: false,
+                                  ).myListssss[index].thumbnails.mediumResUrl
                                 : snapshot.data[index].thumbnails.mediumResUrl
                                     as String,
                             fit: BoxFit.fitHeight,
@@ -204,21 +206,23 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                           right: 10,
                           child: (widget.where == SearchTo.video)
                               ? Text(
-                                  Provider.of<GetVideosFromYT>(context,
-                                                  listen: false)
-                                              .myListssss[index]
-                                              .duration !=
+                                  Provider.of<GetVideosFromYT>(
+                                            context,
+                                            listen: false,
+                                          ).myListssss[index].duration !=
                                           null
                                       ? formatDuration(
-                                          Provider.of<GetVideosFromYT>(context,
-                                                  listen: false)
-                                              .myListssss[index]
-                                              .duration as Duration,
+                                          Provider.of<GetVideosFromYT>(
+                                            context,
+                                            listen: false,
+                                          ).myListssss[index].duration
+                                              as Duration,
                                         )
                                       : '00:00',
                                   style: const TextStyle(
                                     color: Colors.white,
-                                  ))
+                                  ),
+                                )
                               : Text(
                                   snapshot.data[index].duration != null
                                       ? formatDuration(
@@ -228,7 +232,8 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                                       : '00:00',
                                   style: const TextStyle(
                                     color: Colors.white,
-                                  )),
+                                  ),
+                                ),
                         ),
                         Positioned(
                           top: 25,
@@ -247,15 +252,16 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                               ),
                               onPressed: () {
                                 showDownloadListo(
-                                    context,
-                                    snapshot.data[index].title as String,
-                                    snapshot.data[index].id as VideoId,
-                                    snapshot.data[index].thumbnails.lowResUrl
-                                        as String,
-                                    snapshot.data[index].thumbnails.mediumResUrl
-                                        as String,
-                                    snapshot.data[index].thumbnails.highResUrl
-                                        as String);
+                                  context,
+                                  snapshot.data[index].title as String,
+                                  snapshot.data[index].id as VideoId,
+                                  snapshot.data[index].thumbnails.lowResUrl
+                                      as String,
+                                  snapshot.data[index].thumbnails.mediumResUrl
+                                      as String,
+                                  snapshot.data[index].thumbnails.highResUrl
+                                      as String,
+                                );
                                 /* print('ooooooo'); */
                               },
                             ),
@@ -277,21 +283,22 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                       children: <Widget>[
                         const Text('Author: '),
                         Flexible(
-                            child: Text(
-                          (widget.where == SearchTo.video)
-                              ? Provider.of<GetVideosFromYT>(context,
-                                      listen: false)
-                                  .myListssss[index]
-                                  .author
-                              : snapshot.data[index].author as String,
-                          style:
-                              Theme.of(context).textTheme.subtitle2!.copyWith(
-                                    color: kytcol,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                          maxLines: 1,
-                          overflow: TextOverflow.fade,
-                        ))
+                          child: Text(
+                            (widget.where == SearchTo.video)
+                                ? Provider.of<GetVideosFromYT>(
+                                    context,
+                                    listen: false,
+                                  ).myListssss[index].author
+                                : snapshot.data[index].author as String,
+                            style:
+                                Theme.of(context).textTheme.subtitle2!.copyWith(
+                                      color: kytcol,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                            maxLines: 1,
+                            overflow: TextOverflow.fade,
+                          ),
+                        )
                       ],
                     ),
                   ],

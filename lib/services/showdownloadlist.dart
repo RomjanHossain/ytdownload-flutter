@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
@@ -105,14 +104,10 @@ void showDownloadListo(
                 NeumorphicButton(
                   onPressed: () {
                     Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                        .addThumbnail(YoutubeDownloadModel(
-                            thumbMid,
-                            title,
-                            'Medium',
-                            '',
-                            thumbMid,
-                            id,
-                            TypeDownload.thumbnail));
+                        .addThumbnail(
+                      YoutubeDownloadModel(thumbMid, title, 'Medium', '',
+                          thumbMid, id, TypeDownload.thumbnail),
+                    );
                     Navigator.pop(context);
                   },
                   /* margin: const EdgeInsets.all(30), */

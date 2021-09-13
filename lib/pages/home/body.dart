@@ -67,58 +67,63 @@ class _MyBodyState extends State<MyBody> {
         ),
         Expanded(
           child: Container(
-              color: kprimaryColor,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  NeuTextField(
-                    label: 'Input text',
-                    onChanged: (String value) {
-                      setState(() {
-                        val = value;
-                      });
-                    },
-                    hintTxt: _myTitle[_selectedindex],
-                  ),
-                  SizedBox(
-                    width: 170,
-                    child: NeumorphicButton(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 40, vertical: 15),
-                      style: const NeumorphicStyle(
-                        color: kprimaryColor,
-                        shadowDarkColor: Colors.black,
-                        shadowLightColor: Colors.white,
-                      ),
-                      onPressed: () {
-                        print('thi searchto ->$_st');
-                        if (val.isNotEmpty) {
-                          Navigator.push(
-                              context,
-                              animateTopage(
-                                  ShowingResult(
-                                    query: val,
-                                    st: _st,
-                                  ),
-                                  Offset(krandomGen(), krandomGen())));
-                        }
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        /* crossAxisAlignment: CrossAxisAlignment.center, */
-                        children: const <Widget>[
-                          Icon(
-                            Icons.search,
-                            size: 20,
-                          ),
-                          SizedBox(width: 5),
-                          Text('Search'),
-                        ],
-                      ),
+            color: kprimaryColor,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                NeuTextField(
+                  label: 'Input text',
+                  onChanged: (String value) {
+                    setState(() {
+                      val = value;
+                    });
+                  },
+                  hintTxt: _myTitle[_selectedindex],
+                ),
+                SizedBox(
+                  width: 170,
+                  child: NeumorphicButton(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 40,
+                      vertical: 15,
                     ),
-                  )
-                ],
-              )),
+                    style: const NeumorphicStyle(
+                      color: kprimaryColor,
+                      shadowDarkColor: Colors.black,
+                      shadowLightColor: Colors.white,
+                    ),
+                    onPressed: () {
+                      /* print('thi searchto ->$_st'); */
+                      if (val.isNotEmpty) {
+                        Navigator.push(
+                          context,
+                          animateTopage(
+                            ShowingResult(
+                              query: val,
+                              st: _st,
+                            ),
+                            Offset(krandomGen(), krandomGen()),
+                          ),
+                        );
+                      }
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      /* crossAxisAlignment: CrossAxisAlignment.center, */
+                      children: const <Widget>[
+                        Icon(
+                          Icons.search,
+                          size: 20,
+                        ),
+                        SizedBox(width: 5),
+                        Text('Search'),
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
         )
       ],
     );

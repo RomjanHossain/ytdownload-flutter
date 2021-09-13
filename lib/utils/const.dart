@@ -2,7 +2,20 @@
 import 'dart:io';
 import 'dart:math';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'
+    show
+        Animatable,
+        Animation,
+        BuildContext,
+        Color,
+        Cubic,
+        CurveTween,
+        Curves,
+        Offset,
+        PageRouteBuilder,
+        SlideTransition,
+        Tween,
+        Widget;
 /* import 'package:flutter_local_notifications/flutter_local_notifications.dart'; */
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
