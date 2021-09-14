@@ -9,7 +9,11 @@ import 'package:ytdownload/utils/const.dart';
 
 /// get audiowidgets
 FutureBuilder<List<Widget>> audioWidgets(
-    VideoId id, BuildContext context, String thumbMid, String title) {
+  VideoId id,
+  BuildContext context,
+  String thumbMid,
+  String title,
+) {
   return FutureBuilder<List<Widget>>(
     future: getAudio(id, context, thumbMid, title),
     // initialData: InitialData,

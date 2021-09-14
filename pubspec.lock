@@ -142,9 +142,11 @@ packages:
   flutter_neumorphic:
     dependency: "direct main"
     description:
-      name: flutter_neumorphic
-      url: "https://pub.dartlang.org"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: "12ffde5fecdc4724b4c64c4db92fd4dfd303f9a9"
+      url: "https://github.com/tsvillain/Flutter-Neumorphic.git"
+    source: git
     version: "3.1.0"
   flutter_svg:
     dependency: "direct main"
@@ -221,6 +223,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.7.2"
+  logger:
+    dependency: transitive
+    description:
+      name: logger
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.1.0"
   matcher:
     dependency: transitive
     description:
@@ -354,6 +363,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "6.0.0"
+  rename:
+    dependency: "direct main"
+    description:
+      name: rename
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.3.1"
   sky_engine:
     dependency: transitive
     description: flutter
