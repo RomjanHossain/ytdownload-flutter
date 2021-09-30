@@ -1,4 +1,4 @@
-#  <img src="assets/logo/logo.png" alt="logo" style="zoom:25%;" />
+#  <img src="assets/logo/logo.png" alt="logo" width=96  />
 
 **Y2D** : A open-source YouTube Downloader App built in [Flutter](https://github.com/flutter/flutter)
 
@@ -10,11 +10,11 @@
 
 # Download
 
-[![Watch the demo video](https://img.youtube.com/vi/bK68EV-VIyI/maxresdefault.jpg)](https://www.youtube.com/watch?v=bK68EV-VIyI)
+[![Watch the demo video](ss/home.png)](https://www.youtube.com/watch?v=bK68EV-VIyI)
 
 
 
-Download Link :  <a href="app/app-armeabi-v7a-release.apk"><img src="ss/downbtn.png" style="zoom:25%;" /></a>
+Download Link :  <a href="https://github.com/RomjanHossain/ytdownload-flutter/raw/master/app/app-armeabi-v7a-release.apk"><img src="ss/downbtn.png" style="zoom:25%;" /></a>
 
 ## Features
 
