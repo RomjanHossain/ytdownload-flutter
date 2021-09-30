@@ -10,7 +10,7 @@
 
 # Download
 
-[![Watch the demo video](ss/home.png)](https://www.youtube.com/watch?v=bK68EV-VIyI)
+[<img src="/media/Linux/Programming/Flutter/ytdownload/ytdownload/ss/home.png" alt="Watch the demo video" height=500 />](https://www.youtube.com/watch?v=bK68EV-VIyI)
 
 
 
@@ -27,7 +27,23 @@ Download Link :  <a href="https://github.com/RomjanHossain/ytdownload-flutter/ra
 
 ##  Screenshots
 
-<img src="ss/home.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447795.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447804.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447865.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447882.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447889.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447916.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447919.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447970.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631447999.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631448253.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631448605.png" alt="ss1" style="zoom:25%;" /><img src="ss/Screenshot_1631448617.png" alt="ss1" style="zoom:25%;" />
+| <img src="ss/home.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631447795.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631447804.png" alt="ss1" style="zoom:25%;" /> |
+| ----------------------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                                       |                                                              |                                                              |
+
+| <img src="ss/Screenshot_1631447865.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631447882.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631447889.png" alt="ss1" style="zoom:25%;" /> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                                              |                                                              |                                                              |
+
+| <img src="ss/Screenshot_1631447916.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631447919.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631447970.png" alt="ss1" style="zoom:25%;" /> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                                              |                                                              |                                                              |
+
+| <img src="ss/Screenshot_1631447999.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631448253.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631448605.png" alt="ss1" style="zoom:25%;" /> |
+| ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+|                                                              |                                                              |                                                              |
+
+<img src="ss/Screenshot_1631448617.png" alt="ss1" style="zoom:25%;"  />
 
 
 
