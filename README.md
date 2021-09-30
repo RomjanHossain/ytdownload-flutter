@@ -57,9 +57,9 @@ Download Link :  <a href="https://github.com/RomjanHossain/ytdownload-flutter/ra
 
   First of all, channel and user id are different.
 
-  Here's how chennel id looks like: <img src="/media/Linux/Programming/Flutter/ytdownload/ytdownload/ss/ch.png" alt="ss1">
+  Here's how chennel id looks like: <img src="ss/ch.png" alt="ss1">
 
-  Here's how User id looks like:<img src="/media/Linux/Programming/Flutter/ytdownload/ytdownload/ss/pe.png" alt="user" />
+  Here's how User id looks like:<img src="ss/pe.png" alt="user" />
 
   In this app you have to paste channel ID not user ID. You can search user ID in the *search video* tab and get all his channel videos.
 
@@ -67,7 +67,7 @@ Download Link :  <a href="https://github.com/RomjanHossain/ytdownload-flutter/ra
 
   You can just paste the playlist id in *search playlist* tab
 
-  <img src="/media/Linux/Programming/Flutter/ytdownload/ytdownload/ss/playlist.png" alt="playlist" />
+  <img src="ss/playlist.png" alt="playlist" />
 
   Here's the above playlist id : `PLLqySrPI20q-kcFreUhiQG_xfX3YqqKUi`
 
