@@ -43,7 +43,7 @@ Download Link :  <a href="https://github.com/RomjanHossain/ytdownload-flutter/ra
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
 |                                                              |                                                              |                                                              |
 
-<img src="ss/Screenshot_1631448617.png" alt="ss1" style="zoom:25%;"  />
+<img src="ss/Screenshot_1631448617.png" alt="ss1" height=700 style="zoom:25%;"  />
 
 
 
