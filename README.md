@@ -14,7 +14,11 @@
 
 
 
-Download Link :  <a href="https://github.com/RomjanHossain/ytdownload-flutter/raw/master/app/app-armeabi-v7a-release.apk"><img src="ss/downbtn.png" style="zoom:25%;" /></a>
+Download Link : 
+
+-  <a href="https://github.com/RomjanHossain/ytdownload-flutter/raw/master/app/app-armeabi-v7a-release.apk">ARM 32-bit</a>
+-  <a href="https://github.com/RomjanHossain/ytdownload-flutter/raw/master/app/app-arm64-v8a-release.apk">ARM 64-bit</a>
+- <a href="https://github.com/RomjanHossain/ytdownload-flutter/raw/master/app/app-x86_64-release.apk">x86 64-bit</a>
 
 ## Features
 
