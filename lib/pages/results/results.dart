@@ -76,7 +76,6 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _mybeautifulfuture();
     if (widget.where == SearchTo.video) {
@@ -100,14 +99,12 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     controller.dispose();
   }
 
   @override
   void didChangeDependencies() {
-    // TODO: implement didChangeDependencies
     super.didChangeDependencies();
   }
 
