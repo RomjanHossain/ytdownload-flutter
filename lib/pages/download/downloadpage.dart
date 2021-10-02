@@ -16,7 +16,7 @@ class DownloadPage extends StatelessWidget {
     return NeumorphicTheme(
       themeMode: ThemeMode.light,
       darkTheme: const NeumorphicThemeData(
-        baseColor: NeumorphicColors.darkBackground,
+        baseColor: kprimaryColorD,
         accentColor: NeumorphicColors.darkAccent,
         depth: 6,
         intensity: 0.3,

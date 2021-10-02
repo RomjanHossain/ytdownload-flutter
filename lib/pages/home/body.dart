@@ -28,11 +28,15 @@ class _MyBodyState extends State<MyBody> {
           child: NeumorphicToggle(
             style: const NeumorphicToggleStyle(
               backgroundColor: Color(0xffFF0000),
+
             ),
             width: MediaQuery.of(context).size.width / 1.06,
             selectedIndex: _selectedindex,
             thumb: Center(
-              child: Text(_myTitle[_selectedindex]),
+              child: Text(_myTitle[_selectedindex],
+              
+              style:NeumorphicTheme.currentTheme(context).textTheme.bodyText2,
+              ),
             ),
             onChanged: (int index) {
               setState(() {
@@ -49,26 +53,26 @@ class _MyBodyState extends State<MyBody> {
             children: <ToggleElement>[
               ToggleElement(
                 background: Center(
-                  child: Text(_myTitle[0]),
+                  child: Text(_myTitle[0],style:NeumorphicTheme.currentTheme(context).textTheme.bodyText2,),
                 ),
               ),
               ToggleElement(
                 background: Center(
-                  child: Text(_myTitle[1]),
+                  child: Text(_myTitle[1],style:NeumorphicTheme.currentTheme(context).textTheme.bodyText2,),
                 ),
               ),
               ToggleElement(
                 background: Center(
-                  child: Text(_myTitle[2]),
+                  child: Text(_myTitle[2],style:NeumorphicTheme.currentTheme(context).textTheme.bodyText2,),
                 ),
               ),
             ],
           ),
         ),
         Expanded(
-          child: Container(
-            color: kprimaryColor,
-            child: Column(
+          child:
+           
+             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 NeuTextField(
@@ -88,9 +92,10 @@ class _MyBodyState extends State<MyBody> {
                       vertical: 15,
                     ),
                     style: const NeumorphicStyle(
-                      color: kprimaryColor,
+                      // color: kprimaryColor,
                       shadowDarkColor: Colors.black,
                       shadowLightColor: Colors.white,
+
                     ),
                     onPressed: () {
                       /* print('thi searchto ->$_st'); */
@@ -110,20 +115,22 @@ class _MyBodyState extends State<MyBody> {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       /* crossAxisAlignment: CrossAxisAlignment.center, */
-                      children: const <Widget>[
+                      children:  <Widget>[
+                        
                         Icon(
                           Icons.search,
                           size: 20,
+                          color:NeumorphicTheme.isUsingDark(context)? Colors.white:Colors.black,
                         ),
-                        SizedBox(width: 5),
-                        Text('Search'),
+                   const     SizedBox(width: 5),
+                        Text('Search',style:NeumorphicTheme.currentTheme(context).textTheme.bodyText2,),
                       ],
                     ),
                   ),
                 )
               ],
             ),
-          ),
+         
         )
       ],
     );

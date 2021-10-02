@@ -16,12 +16,52 @@ import 'package:flutter/material.dart'
         SlideTransition,
         Tween,
         Widget;
+import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 /* import 'package:flutter_local_notifications/flutter_local_notifications.dart'; */
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+/// neumorphic dark theme
+const NeumorphicThemeData dktheme = NeumorphicThemeData(
+  baseColor: kprimaryColorD,
+  // accentColor: NeumorphicColors.darkAccent,
+  appBarTheme: NeumorphicAppBarThemeData(
+    color: kprimaryColorD,
+    textStyle: TextStyle(
+      color: Colors.white,
+    ),
+    iconTheme: IconThemeData(
+      color: Colors.white,
+    ),
+  ),
+  textTheme: TextTheme(
+    bodyText2: TextStyle(color:Colors.white),
+  ),
+  depth: 6,
+  intensity: 0.3,
+);
+
+/// neumophic light theme
+const NeumorphicThemeData ltheme = NeumorphicThemeData(
+  baseColor: kprimaryColor,
+  appBarTheme: NeumorphicAppBarThemeData(
+    color: kprimaryColor,
+    textStyle: TextStyle(
+      color: Colors.black,
+    ),
+    iconTheme: IconThemeData(
+      color: Colors.black,
+    ),
+  ),
+  depth: 10,
+  intensity: 0.5,
+);
+
 /// my primary light theme color
 const Color kprimaryColor = Color(0xffEFE9EB);
+
+/// my primary light theme color
+const Color kprimaryColorD = Color(0xff243441);
 
 /// yt red color
 const Color kytcol = Color(0xffFF0000);

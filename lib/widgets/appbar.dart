@@ -15,7 +15,6 @@ NeumorphicAppBar myAppBar(
   isDispo dispo,
 ) {
   return NeumorphicAppBar(
-    color: kprimaryColor,
     title: Row(
       children: <Widget>[
         SvgPicture.asset(
@@ -26,9 +25,7 @@ NeumorphicAppBar myAppBar(
         Expanded(
           child: Text(
             title,
-            style: Theme.of(context).textTheme.headline6!.copyWith(
-                  color: Colors.black,
-                ),
+            style: NeumorphicTheme.currentTheme(context).textTheme.bodyText1,
             overflow: TextOverflow.ellipsis,
             softWrap: true,
             maxLines: 1,
@@ -74,7 +71,7 @@ NeumorphicAppBar myAppBar(
           },
           child: const Icon(
             LineIcons.download,
-            color: Colors.black,
+            // color: Colors.black,
           ),
         )
       else

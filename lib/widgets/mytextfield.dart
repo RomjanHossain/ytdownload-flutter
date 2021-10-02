@@ -47,7 +47,8 @@ class _NeuTextFieldState extends State<NeuTextField> {
         controller: _controller,
         decoration: InputDecoration.collapsed(
             hintText: widget.hintTxt,
-            hintStyle: const TextStyle(color: Colors.white70)),
+            hintStyle:NeumorphicTheme.currentTheme(context).textTheme.bodyText2,
+            ),
       ),
     );
   }
