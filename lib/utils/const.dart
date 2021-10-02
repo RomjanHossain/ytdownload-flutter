@@ -25,6 +25,7 @@ import 'package:permission_handler/permission_handler.dart';
 const NeumorphicThemeData dktheme = NeumorphicThemeData(
   baseColor: kprimaryColorD,
   // accentColor: NeumorphicColors.darkAccent,
+  defaultTextColor: Colors.white,
   appBarTheme: NeumorphicAppBarThemeData(
     color: kprimaryColorD,
     textStyle: TextStyle(

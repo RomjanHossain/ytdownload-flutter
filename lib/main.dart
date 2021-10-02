@@ -29,21 +29,19 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Awesome Youtube Downloader',
-      theme: ThemeData(
-        textTheme: GoogleFonts.openSansTextTheme(
-          Theme.of(context).textTheme,
-        ).apply(
-            /* bodyColor: Colors.white, */
-            ),
-      ),
-      home:  NeumorphicTheme(
-        darkTheme: dktheme,
       theme: ltheme,
-        child:const MyHomePage(),
-        ),
+      darkTheme: dktheme,
+      // theme: ThemeData(
+      //   textTheme: GoogleFonts.openSansTextTheme(
+      //     Theme.of(context).textTheme,
+      //   ).apply(
+      //       /* bodyColor: Colors.white, */
+      //       ),
+      // ),
+      home:  const MyHomePage(),
     );
   }
 }

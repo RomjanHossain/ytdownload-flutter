@@ -503,7 +503,10 @@ class DownloadItem extends StatelessWidget {
           onActionClick!(task);
         },
         /* shape: const CircleBorder(), */
-        child: const Icon(LineIcons.download),
+        child: const Icon(
+          LineIcons.download,
+       
+        ),
       );
     } else if (task.status == DownloadTaskStatus.running) {
       return NeumorphicButton(

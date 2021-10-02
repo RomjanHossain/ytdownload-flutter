@@ -11,21 +11,16 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      darkTheme: dktheme,
-      theme: ltheme,
-      child: Scaffold(
-        backgroundColor: NeumorphicTheme.baseColor(context),
-        // backgroundColor: Colors.red,
-        appBar: myAppBar(
-          context,
-          'Youtube Downloader',
-          isNavBack.no,
-          isDown.yes,
-          isDispo.no,
-        ),
-        body: MyBody(),
+    return Scaffold(
+      backgroundColor: NeumorphicTheme.currentTheme(context).baseColor,
+      appBar: myAppBar(
+        context,
+        'Youtube Downloader',
+        isNavBack.no,
+        isDown.yes,
+        isDispo.no,
       ),
+      body: MyBody(),
     );
   }
 }

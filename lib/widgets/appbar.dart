@@ -25,7 +25,7 @@ NeumorphicAppBar myAppBar(
         Expanded(
           child: Text(
             title,
-            style: NeumorphicTheme.currentTheme(context).textTheme.bodyText1,
+            // style: NeumorphicTheme.currentTheme(context).textTheme.bodyText1,
             overflow: TextOverflow.ellipsis,
             softWrap: true,
             maxLines: 1,
@@ -57,8 +57,6 @@ NeumorphicAppBar myAppBar(
       if (down == isDown.yes)
         NeumorphicButton(
           style: const NeumorphicStyle(
-            /* shadowLightColor: Colors.red, */
-            /* shadowDarkColor: Colors.black, */
             boxShape: NeumorphicBoxShape.circle(),
             depth: 2,
             intensity: 0.6,
@@ -67,7 +65,8 @@ NeumorphicAppBar myAppBar(
             Navigator.push(
                 context,
                 MaterialPageRoute<dynamic>(
-                    builder: (BuildContext context) => const DownloadPage()));
+                    builder: (BuildContext context) => const DownloadPage(),
+                    ),);
           },
           child: const Icon(
             LineIcons.download,

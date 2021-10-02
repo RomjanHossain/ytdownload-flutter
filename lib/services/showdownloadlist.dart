@@ -23,137 +23,133 @@ void showDownloadListo(
   // vido = manifest.videoOnly
 
   showModalBottomSheet<void>(
+    
     context: context,
     builder: (BuildContext builder) {
-      return Neumorphic(
-        style: const NeumorphicStyle(
-          color: kprimaryColor,
-          boxShape: NeumorphicBoxShape.rect(),
-          /* intensity: 0.1, */
-        ),
-        child: ListView(
-          physics: const BouncingScrollPhysics(),
-          children: <Widget>[
-            Padding(
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                'Full-Videos',
-                style: Theme.of(context).textTheme.headline6,
-                textAlign: TextAlign.center,
-              ),
+      return ListView(
+        physics: const BouncingScrollPhysics(),
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(
+              'Full-Videos',
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.center,
             ),
-            fullvidWidgets(id, context, thumbMid, title),
-            Padding(
-              /* padding: const EdgeInsets.all(8.0), */
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                'Only Audio',
-                style: Theme.of(context).textTheme.headline6,
-                textAlign: TextAlign.center,
-              ),
+          ),
+          fullvidWidgets(id, context, thumbMid, title),
+          Padding(
+            /* padding: const EdgeInsets.all(8.0), */
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(
+              'Only Audio',
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.center,
             ),
-            audioWidgets(id, context, thumbMid, title),
-            Padding(
-              /* padding: const EdgeInsets.all(8.0), */
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                'Only Video',
-                style: Theme.of(context).textTheme.headline6,
-                textAlign: TextAlign.center,
-              ),
+          ),
+          audioWidgets(id, context, thumbMid, title),
+          Padding(
+            /* padding: const EdgeInsets.all(8.0), */
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(
+              'Only Video',
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.center,
             ),
-            videoWidgets(id, context, thumbMid, title),
-            Padding(
-              /* padding: const EdgeInsets.all(8.0), */
-              padding: const EdgeInsets.only(top: 20),
-              child: Text(
-                'Thumbnails',
-                style: Theme.of(context).textTheme.headline6,
-                textAlign: TextAlign.center,
-              ),
+          ),
+          videoWidgets(id, context, thumbMid, title),
+          Padding(
+            /* padding: const EdgeInsets.all(8.0), */
+            padding: const EdgeInsets.only(top: 20),
+            child: Text(
+              'Thumbnails',
+              style: Theme.of(context).textTheme.headline6,
+              textAlign: TextAlign.center,
             ),
-            Column(
-              children: <Widget>[
-                NeumorphicButton(
-                  onPressed: () {
-                    /// 1st-> get storage permission
-                    /// 2nd-> get download path
-                    /// 3rd-> download the file
-                    Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                        .addThumbnail(YoutubeDownloadModel(thumbHigh, title,
-                            'High', '', thumbHigh, id, TypeDownload.thumbnail));
-                    Navigator.pop(context);
-                  },
-                  margin: const EdgeInsets.only(
-                    top: 30,
-                    left: 30,
-                    right: 30,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  style: NeumorphicStyle(
-                    /* color: kprimaryColor, */
-                    color: Colors.cyanAccent.withOpacity(0.3),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const <Widget>[
-                      Text('High  '),
-                    ],
-                  ),
+          ),
+          Column(
+            children: <Widget>[
+              NeumorphicButton(
+                onPressed: () {
+                  /// 1st-> get storage permission
+                  /// 2nd-> get download path
+                  /// 3rd-> download the file
+                  Provider.of<YoutubeDownloadProvider>(context, listen: false)
+                      .addThumbnail(YoutubeDownloadModel(thumbHigh, title,
+                          'High', '', thumbHigh, id, TypeDownload.thumbnail));
+                  Navigator.pop(context);
+                },
+                margin: const EdgeInsets.only(
+                  top: 30,
+                  left: 30,
+                  right: 30,
                 ),
-                NeumorphicButton(
-                  onPressed: () {
-                    Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                        .addThumbnail(
-                      YoutubeDownloadModel(thumbMid, title, 'Medium', '',
-                          thumbMid, id, TypeDownload.thumbnail),
-                    );
-                    Navigator.pop(context);
-                  },
-                  /* margin: const EdgeInsets.all(30), */
-                  margin: const EdgeInsets.only(
-                    top: 30,
-                    left: 30,
-                    right: 30,
-                  ),
-                  padding: const EdgeInsets.all(10),
-                  style: NeumorphicStyle(
-                    /* color: kprimaryColor, */
-                    color: Colors.cyanAccent.withOpacity(0.3),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const <Widget>[
-                      Text('Midium'),
-                    ],
-                  ),
+                padding: const EdgeInsets.all(10),
+                style: NeumorphicStyle(
+                  /* color: kprimaryColor, */
+                  color: Colors.cyanAccent.withOpacity(0.3),
                 ),
-                NeumorphicButton(
-                  onPressed: () {
-                    Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                        .addThumbnail(YoutubeDownloadModel(thumbLow, title,
-                            'Law', '', thumbLow, id, TypeDownload.thumbnail));
-                    Navigator.pop(context);
-                  },
-                  /* margin: const EdgeInsets.all(30), */
-                  margin: const EdgeInsets.all(30),
-                  padding: const EdgeInsets.all(10),
-                  style: NeumorphicStyle(
-                    /* color: kprimaryColor, */
-                    color: Colors.cyanAccent.withOpacity(0.3),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: const <Widget>[
-                      Text('Low   '),
-                    ],
-                  ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const <Widget>[
+                    Text('High  '),
+                  ],
                 ),
-              ],
-            ),
-          ],
-        ),
+              ),
+              NeumorphicButton(
+                onPressed: () {
+                  Provider.of<YoutubeDownloadProvider>(context, listen: false)
+                      .addThumbnail(
+                    YoutubeDownloadModel(thumbMid, title, 'Medium', '',
+                        thumbMid, id, TypeDownload.thumbnail),
+                  );
+                  Navigator.pop(context);
+                },
+                /* margin: const EdgeInsets.all(30), */
+                margin: const EdgeInsets.only(
+                  top: 30,
+                  left: 30,
+                  right: 30,
+                ),
+                padding: const EdgeInsets.all(10),
+                style: NeumorphicStyle(
+                  /* color: kprimaryColor, */
+                  color: Colors.cyanAccent.withOpacity(0.3),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const <Widget>[
+                    Text('Medium'),
+                  ],
+                ),
+              ),
+              NeumorphicButton(
+                onPressed: () {
+                  Provider.of<YoutubeDownloadProvider>(context, listen: false)
+                      .addThumbnail(YoutubeDownloadModel(thumbLow, title,
+                          'Law', '', thumbLow, id, TypeDownload.thumbnail));
+                  Navigator.pop(context);
+                },
+                /* margin: const EdgeInsets.all(30), */
+                margin: const EdgeInsets.all(30),
+                padding: const EdgeInsets.all(10),
+                style: NeumorphicStyle(
+                  /* color: kprimaryColor, */
+                  color: Colors.cyanAccent.withOpacity(0.3),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: const <Widget>[
+                    Text('Low   '),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ],
       );
     },
+    backgroundColor: NeumorphicTheme.currentTheme(context).baseColor,
   );
+  
 }

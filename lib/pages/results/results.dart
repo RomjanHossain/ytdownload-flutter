@@ -18,39 +18,14 @@ class ShowingResult extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-
-      darkTheme: const NeumorphicThemeData(
-        baseColor: kprimaryColorD,
-        appBarTheme: NeumorphicAppBarThemeData(
-          color: kprimaryColorD,
-          textStyle: TextStyle(
-            color: Colors.white,
-          ),
-          iconTheme: IconThemeData(
-            color: Colors.white,
-          ),
-        ),
-        depth: 6,
-        intensity: 0.3,
-      ),
-      theme: const NeumorphicThemeData(
-        baseColor: kprimaryColor,
-        appBarTheme: NeumorphicAppBarThemeData(
-          color: kprimaryColor,
-        ),
-        depth: 10,
-        intensity: 0.5,
-      ),
-      child: Scaffold(
-        backgroundColor: NeumorphicTheme.currentTheme(context).baseColor,
-        // backgroundColor: Colors.red,
-        appBar:
-            myAppBar(context, query, isNavBack.yes, isDown.yes, isDispo.yes),
-        body: ShowingListOfVideos(
-          query: query,
-          where: st,
-        ),
+    return Scaffold(
+      backgroundColor: NeumorphicTheme.currentTheme(context).baseColor,
+      // backgroundColor: kprimaryColorD,
+      appBar:
+          myAppBar(context, query, isNavBack.yes, isDown.yes, isDispo.yes),
+      body: ShowingListOfVideos(
+        query: query,
+        where: st,
       ),
     );
   }

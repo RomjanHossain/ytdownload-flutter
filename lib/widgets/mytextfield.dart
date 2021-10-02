@@ -36,7 +36,7 @@ class _NeuTextFieldState extends State<NeuTextField> {
       style: NeumorphicStyle(
         color: const Color(0xffFF0000),
         depth: NeumorphicTheme.embossDepth(context),
-        boxShape: NeumorphicBoxShape.beveled(BorderRadius.circular(10)),
+        // boxShape: NeumorphicBoxShape.beveled(BorderRadius.circular(10)),
       ),
       padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 18),
       child: TextField(

@@ -13,46 +13,30 @@ class DownloadPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return NeumorphicTheme(
-      themeMode: ThemeMode.light,
-      darkTheme: const NeumorphicThemeData(
-        baseColor: kprimaryColorD,
-        accentColor: NeumorphicColors.darkAccent,
-        depth: 6,
-        intensity: 0.3,
+    return Scaffold(
+      appBar: myAppBar(
+        context,
+        'Downloads',
+        isNavBack.yes,
+        isDown.no,
+        isDispo.no,
       ),
-      theme: const NeumorphicThemeData(
-        baseColor: kprimaryColor,
-        depth: 10,
-        intensity: 0.5,
-      ),
-      child: Scaffold(
-        backgroundColor: kprimaryColor,
-        appBar: myAppBar(
-          context,
-          'Downloads',
-          isNavBack.yes,
-          isDown.no,
-          isDispo.no,
-        ),
-        body: Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                    .totalDownload >
-                0
-            ? DownloadPageItem(
-                context: context,
-              )
-            : Center(
-                child: Text(
-                  'No Downloads Yet',
-                  style: Theme.of(context).textTheme.headline5!.copyWith(
-                        /* fontStyle: FontStyle.italic, */
-                        fontWeight: FontWeight.w100,
-                      ),
-
-                  /* textAlign: TextAlign.center, */
-                ),
+      body: Provider.of<YoutubeDownloadProvider>(context, listen: false)
+                  .totalDownload >
+              0
+          ? DownloadPageItem(
+              context: context,
+            )
+          : Center(
+              child: Text(
+                'No Downloads Yet',
+                style: Theme.of(context).textTheme.headline5!.copyWith(
+                      /* fontStyle: FontStyle.italic, */
+                      fontWeight: FontWeight.w100,
+                    ),
+                /* textAlign: TextAlign.center, */
               ),
-      ),
+            ),
     );
   }
 }

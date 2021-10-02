@@ -114,16 +114,19 @@ class _MyBodyState extends State<MyBody> {
                     },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
-                      /* crossAxisAlignment: CrossAxisAlignment.center, */
                       children:  <Widget>[
                         
                         Icon(
                           Icons.search,
                           size: 20,
-                          color:NeumorphicTheme.isUsingDark(context)? Colors.white:Colors.black,
+                          color:NeumorphicTheme.isUsingDark(context)?
+                           Colors.white:Colors.black,
                         ),
                    const     SizedBox(width: 5),
-                        Text('Search',style:NeumorphicTheme.currentTheme(context).textTheme.bodyText2,),
+                        Text('Search',
+                        style:NeumorphicTheme.currentTheme(context)
+                        .textTheme.bodyText2,
+                        ),
                       ],
                     ),
                   ),
