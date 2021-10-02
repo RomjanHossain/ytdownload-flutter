@@ -63,10 +63,11 @@ NeumorphicAppBar myAppBar(
           ),
           onPressed: () {
             Navigator.push(
-                context,
-                MaterialPageRoute<dynamic>(
-                    builder: (BuildContext context) => const DownloadPage(),
-                    ),);
+              context,
+              MaterialPageRoute<dynamic>(
+                builder: (BuildContext context) => const DownloadPage(),
+              ),
+            );
           },
           child: const Icon(
             LineIcons.download,
@@ -74,7 +75,43 @@ NeumorphicAppBar myAppBar(
           ),
         )
       else
-        const SizedBox.shrink()
+       const ToggleDarkTheme()
     ],
   );
+}
+/// toggle dark theme 
+class ToggleDarkTheme extends StatefulWidget {
+  /// constractor
+  const ToggleDarkTheme({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<ToggleDarkTheme> createState() => _ToggleDarkThemeState();
+}
+
+class _ToggleDarkThemeState extends State<ToggleDarkTheme> {
+  bool _switchEnable = false;
+  @override
+  Widget build(BuildContext context) {
+    return NeumorphicSwitch(
+      value: _switchEnable,
+      style:const NeumorphicSwitchStyle(
+        trackDepth: -3.0,
+        thumbShape: NeumorphicShape.convex,
+      ),
+      onChanged: (bool value) {
+        print('value-> $value', );
+        if(NeumorphicTheme.of(context)!.isUsingDark){
+  NeumorphicTheme.of(context)!.themeMode = ThemeMode.light;
+}else{
+  NeumorphicTheme.of(context)!.themeMode = ThemeMode.dark;
+}
+        
+        setState(() {
+              _switchEnable = value;
+            });
+      },
+    );
+  }
 }

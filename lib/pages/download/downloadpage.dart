@@ -14,6 +14,7 @@ class DownloadPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: NeumorphicTheme.baseColor(context),
       appBar: myAppBar(
         context,
         'Downloads',

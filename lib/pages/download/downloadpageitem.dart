@@ -504,8 +504,7 @@ class DownloadItem extends StatelessWidget {
         },
         /* shape: const CircleBorder(), */
         child: const Icon(
-          LineIcons.download,
-       
+          LineIcons.download,   
         ),
       );
     } else if (task.status == DownloadTaskStatus.running) {
