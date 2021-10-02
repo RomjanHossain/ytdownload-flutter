@@ -51,6 +51,10 @@ Download Link :
 
 
 
+### Dark Mode
+
+![darkmode](ss/darkmode.GIF)
+
 ## Questions & Answers 
 
 - **Where's my downloaded videos/thumbnail/audios ?**

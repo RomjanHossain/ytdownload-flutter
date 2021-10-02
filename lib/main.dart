@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
       //       /* bodyColor: Colors.white, */
       //       ),
       // ),
-      home:  const MyHomePage(),
+      home: const MyHomePage(),
     );
   }
 }

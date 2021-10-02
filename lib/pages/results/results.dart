@@ -21,8 +21,7 @@ class ShowingResult extends StatelessWidget {
     return Scaffold(
       backgroundColor: NeumorphicTheme.currentTheme(context).baseColor,
       // backgroundColor: kprimaryColorD,
-      appBar:
-          myAppBar(context, query, isNavBack.yes, isDown.yes, isDispo.yes),
+      appBar: myAppBar(context, query, isNavBack.yes, isDown.yes, isDispo.yes),
       body: ShowingListOfVideos(
         query: query,
         where: st,

@@ -23,7 +23,6 @@ void showDownloadListo(
   // vido = manifest.videoOnly
 
   showModalBottomSheet<void>(
-    
     context: context,
     builder: (BuildContext builder) {
       return ListView(
@@ -126,8 +125,8 @@ void showDownloadListo(
               NeumorphicButton(
                 onPressed: () {
                   Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                      .addThumbnail(YoutubeDownloadModel(thumbLow, title,
-                          'Law', '', thumbLow, id, TypeDownload.thumbnail));
+                      .addThumbnail(YoutubeDownloadModel(thumbLow, title, 'Law',
+                          '', thumbLow, id, TypeDownload.thumbnail));
                   Navigator.pop(context);
                 },
                 /* margin: const EdgeInsets.all(30), */
@@ -151,5 +150,4 @@ void showDownloadListo(
     },
     backgroundColor: NeumorphicTheme.currentTheme(context).baseColor,
   );
-  
 }
