@@ -4,7 +4,6 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
-import 'package:ytdownload/pages/channel/channelvid.dart';
 import 'package:ytdownload/pages/results/results.dart';
 import 'package:ytdownload/services/getvidyt.dart';
 import 'package:ytdownload/services/showdownloadlist.dart';
@@ -242,35 +241,43 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                         Flexible(
                           child: RichText(
                             text: TextSpan(
-                                text: (widget.where == SearchTo.video)
-                                    ? Provider.of<GetVideosFromYT>(
-                                        context,
-                                        listen: false,
-                                      ).myListssss[index].author
-                                    : snapshot.data[index].author as String,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .subtitle2!
-                                    .copyWith(
-                                      color: kytcol,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {
-                                    /* print( */
-                                    /*     'channeid-> ${snapshot.data[index].channelId}'); */
-                                    Navigator.push(
+                              text: (widget.where == SearchTo.video)
+                                  ? Provider.of<GetVideosFromYT>(
                                       context,
-                                      MaterialPageRoute<dynamic>(
-                                        builder: (BuildContext context) =>
-                                            ShowingResult(
-                                                query: snapshot
-                                                    .data[index].channelId
-                                                    .toString(),
-                                                st: SearchTo.channel),
+                                      listen: false,
+                                    ).myListssss[index].author
+                                  : snapshot.data[index].author as String,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle2!
+                                  .copyWith(
+                                    color: kytcol,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute<dynamic>(
+                                      builder: (BuildContext context) =>
+                                          ShowingResult(
+                                        query: (widget.where == SearchTo.video)
+                                            ? Provider.of<GetVideosFromYT>(
+                                                context,
+                                                listen: false,
+                                              )
+                                                .myListssss[index]
+                                                .channelId
+                                                .toString()
+                                            : snapshot.data[index].channelId
+                                                .toString(),
+                                        st: SearchTo.channel,
+                                        isDispoQuery: isDispo.no,
                                       ),
-                                    );
-                                  }),
+                                    ),
+                                  );
+                                },
+                            ),
                           ),
                         )
                         /* Flexible( */

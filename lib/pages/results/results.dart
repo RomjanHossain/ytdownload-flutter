@@ -7,8 +7,12 @@ import 'package:ytdownload/widgets/appbar.dart';
 
 class ShowingResult extends StatelessWidget {
   /// constractor
-  const ShowingResult({Key? key, required this.query, required this.st})
-      : super(key: key);
+  const ShowingResult({
+    Key? key,
+    required this.query,
+    required this.st,
+    required this.isDispoQuery,
+  }) : super(key: key);
 
   /// search query
   final String query;
@@ -16,12 +20,14 @@ class ShowingResult extends StatelessWidget {
   /// search to where
   final SearchTo st;
 
+  /// search to where
+  final isDispo isDispoQuery;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: NeumorphicTheme.currentTheme(context).baseColor,
       // backgroundColor: kprimaryColorD,
-      appBar: myAppBar(context, query, isNavBack.yes, isDown.yes, isDispo.yes),
+      appBar: myAppBar(context, query, isNavBack.yes, isDown.yes, isDispoQuery),
       body: ShowingListOfVideos(
         query: query,
         where: st,

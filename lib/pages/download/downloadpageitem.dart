@@ -290,8 +290,9 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
     _items = <_ItemHolder>[];
 
     _tasks!.addAll(
-        Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
-            .audios);
+      Provider.of<YoutubeDownloadProvider>(widget.context, listen: false)
+          .audios,
+    );
 
     _items.add(_ItemHolder(name: 'Audios'));
     for (int i = count; i < _tasks!.length; i++) {

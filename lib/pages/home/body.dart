@@ -118,6 +118,7 @@ class _MyBodyState extends State<MyBody> {
                           ShowingResult(
                             query: val,
                             st: _st,
+                            isDispoQuery: isDispo.yes,
                           ),
                           Offset(krandomGen(), krandomGen()),
                         ),
