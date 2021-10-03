@@ -60,10 +60,10 @@ class _PlayVideoYTState extends State<PlayVideoYT> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: 'K18cpp_-gP8',
+      initialVideoId: widget.videoID,
       params: const YoutubePlayerParams(
         showFullscreenButton: true,
-        // showControls: true,
+        
       ),
     );
     _controller.onEnterFullscreen = () {
