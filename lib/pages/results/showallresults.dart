@@ -1,8 +1,11 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import 'package:ytdownload/pages/channel/channelvid.dart';
+import 'package:ytdownload/pages/results/results.dart';
 import 'package:ytdownload/services/getvidyt.dart';
 import 'package:ytdownload/services/showdownloadlist.dart';
 import 'package:ytdownload/utils/const.dart';
@@ -103,8 +106,6 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
 
   @override
   Widget build(BuildContext context) {
-    // hmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
-
     return FutureBuilder(
       future: _myfuture,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
@@ -239,22 +240,56 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                       children: <Widget>[
                         const Text('Author: '),
                         Flexible(
-                          child: Text(
-                            (widget.where == SearchTo.video)
-                                ? Provider.of<GetVideosFromYT>(
-                                    context,
-                                    listen: false,
-                                  ).myListssss[index].author
-                                : snapshot.data[index].author as String,
-                            style:
-                                Theme.of(context).textTheme.subtitle2!.copyWith(
+                          child: RichText(
+                            text: TextSpan(
+                                text: (widget.where == SearchTo.video)
+                                    ? Provider.of<GetVideosFromYT>(
+                                        context,
+                                        listen: false,
+                                      ).myListssss[index].author
+                                    : snapshot.data[index].author as String,
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .subtitle2!
+                                    .copyWith(
                                       color: kytcol,
                                       fontWeight: FontWeight.bold,
                                     ),
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    /* print( */
+                                    /*     'channeid-> ${snapshot.data[index].channelId}'); */
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute<dynamic>(
+                                        builder: (BuildContext context) =>
+                                            ShowingResult(
+                                                query: snapshot
+                                                    .data[index].channelId
+                                                    .toString(),
+                                                st: SearchTo.channel),
+                                      ),
+                                    );
+                                  }),
                           ),
                         )
+                        /* Flexible( */
+                        /*   child: Text( */
+                        /*     (widget.where == SearchTo.video) */
+                        /*         ? Provider.of<GetVideosFromYT>( */
+                        /*             context, */
+                        /*             listen: false, */
+                        /*           ).myListssss[index].author */
+                        /*         : snapshot.data[index].author as String, */
+                        /*     style: */
+                        /*         Theme.of(context).textTheme.subtitle2!.copyWith( */
+                        /*               color: kytcol, */
+                        /*               fontWeight: FontWeight.bold, */
+                        /*             ), */
+                        /*     maxLines: 1, */
+                        /*     overflow: TextOverflow.fade, */
+                        /*   ), */
+                        /* ) */
                       ],
                     ),
                   ],
