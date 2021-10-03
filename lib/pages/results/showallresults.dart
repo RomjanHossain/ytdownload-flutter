@@ -4,6 +4,7 @@ import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
+import 'package:ytdownload/pages/channel/single_video.dart';
 import 'package:ytdownload/pages/results/results.dart';
 import 'package:ytdownload/services/getvidyt.dart';
 import 'package:ytdownload/services/showdownloadlist.dart';
@@ -144,17 +145,41 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                               BorderRadius.circular(10),
                             ),
                           ),
-                          child: Image.network(
-                            widget.where == SearchTo.video
-                                ? Provider.of<GetVideosFromYT>(
-                                    context,
-                                    listen: false,
-                                  ).myListssss[index].thumbnails.mediumResUrl
-                                : snapshot.data[index].thumbnails.mediumResUrl
-                                    as String,
-                            fit: BoxFit.fitHeight,
-                            width: MediaQuery.of(context).size.width / 1,
-                            /* height: 200, */
+                          child: GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (BuildContext context) =>
+                                      SingleVideo(
+                                    title: widget.where == SearchTo.video
+                                        ? Provider.of<GetVideosFromYT>(context,
+                                                listen: false)
+                                            .myListssss[index]
+                                            .title
+                                        : snapshot.data[index].title as String,
+                                         videoID: widget.where == SearchTo.video
+                                        ? Provider.of<GetVideosFromYT>(context,
+                                                listen: false,)
+                                                .myListssss[index]
+                                            .id.toString()
+                                        : snapshot.data[index].id as String,
+                                  ),
+                                ),
+                              );
+                            },
+                            child: Image.network(
+                              widget.where == SearchTo.video
+                                  ? Provider.of<GetVideosFromYT>(
+                                      context,
+                                      listen: false,
+                                    ).myListssss[index].thumbnails.mediumResUrl
+                                  : snapshot.data[index].thumbnails.mediumResUrl
+                                      as String,
+                              fit: BoxFit.fitHeight,
+                              width: MediaQuery.of(context).size.width / 1,
+                              /* height: 200, */
+                            ),
                           ),
                         ),
                         Positioned(
