@@ -45,8 +45,8 @@ Download Link :
 
 | <img src="ss/Screenshot_1631447999.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631448253.png" alt="ss1" style="zoom:25%;" /> | <img src="ss/Screenshot_1631448605.png" alt="ss1" style="zoom:25%;" /> |
 | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| <img src="ss/Screenshot_1631448617.png" alt="ss1" height=700 style="zoom:25%;"  /> | <img src="ss/Screenshot_1633339104.png" alt="ss1" height=700 style="zoom:25%;"  /> | <img src="ss/Screenshot_1633339119.png" alt="ss1" height=700 style="zoom:25%;"  /> |
-| <img src="ss/Screenshot_1633339138.png" alt="ss1" height=700 style="zoom:25%;"  /> |                                                              |                                                              |
+| <img src="ss/Screenshot_1631448617.png" alt="ss1"  style="zoom:25%;"  /> | <img src="ss/Screenshot_1633339104.png" alt="ss1"  style="zoom:25%;"  /> | <img src="ss/Screenshot_1633339119.png" alt="ss1"  style="zoom:25%;"  /> |
+| <img src="ss/Screenshot_1633339138.png" alt="ss1" style="zoom:25%;"  /> |                                                              |                                                              |
 |                                                              |                                                              |                                                              |
 
 
