@@ -74,8 +74,17 @@ void showDownloadListo(
                   /// 2nd-> get download path
                   /// 3rd-> download the file
                   Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                      .addThumbnail(YoutubeDownloadModel(thumbHigh, title,
-                          'High', '', thumbHigh, id, TypeDownload.thumbnail));
+                      .addThumbnail(
+                    YoutubeDownloadModel(
+                      thumbHigh,
+                      title,
+                      'High',
+                      '',
+                      thumbHigh,
+                      id,
+                      TypeDownload.thumbnail,
+                    ),
+                  );
                   Navigator.pop(context);
                 },
                 margin: const EdgeInsets.only(
@@ -99,8 +108,15 @@ void showDownloadListo(
                 onPressed: () {
                   Provider.of<YoutubeDownloadProvider>(context, listen: false)
                       .addThumbnail(
-                    YoutubeDownloadModel(thumbMid, title, 'Medium', '',
-                        thumbMid, id, TypeDownload.thumbnail),
+                    YoutubeDownloadModel(
+                      thumbMid,
+                      title,
+                      'Medium',
+                      '',
+                      thumbMid,
+                      id,
+                      TypeDownload.thumbnail,
+                    ),
                   );
                   Navigator.pop(context);
                 },
@@ -125,8 +141,17 @@ void showDownloadListo(
               NeumorphicButton(
                 onPressed: () {
                   Provider.of<YoutubeDownloadProvider>(context, listen: false)
-                      .addThumbnail(YoutubeDownloadModel(thumbLow, title, 'Law',
-                          '', thumbLow, id, TypeDownload.thumbnail));
+                      .addThumbnail(
+                    YoutubeDownloadModel(
+                      thumbLow,
+                      title,
+                      'Law',
+                      '',
+                      thumbLow,
+                      id,
+                      TypeDownload.thumbnail,
+                    ),
+                  );
                   Navigator.pop(context);
                 },
                 /* margin: const EdgeInsets.all(30), */

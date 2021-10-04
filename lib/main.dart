@@ -3,6 +3,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
 import 'package:provider/provider.dart';
 import 'package:ytdownload/pages/home/homepage.dart';
+import 'package:ytdownload/services/getcommentyt.dart';
 import 'package:ytdownload/services/getvidyt.dart';
 import 'package:ytdownload/services/provider/ytprovider.dart';
 import 'package:ytdownload/utils/const.dart';
@@ -14,6 +15,12 @@ void main() {
       providers: [
         ChangeNotifierProvider<GetVideosFromYT>(
           create: (BuildContext context) => GetVideosFromYT(),
+        ),
+        ChangeNotifierProvider<GetCommentsFromYT>(
+          create: (BuildContext context) => GetCommentsFromYT(),
+        ),
+        ChangeNotifierProvider<GetCommentsFromYT>(
+          create: (BuildContext context) => GetCommentsFromYT(),
         ),
         ChangeNotifierProvider<YoutubeDownloadProvider>(
           create: (BuildContext context) => YoutubeDownloadProvider(),

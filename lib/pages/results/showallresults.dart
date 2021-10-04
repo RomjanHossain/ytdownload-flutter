@@ -158,12 +158,26 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                                             .myListssss[index]
                                             .title
                                         : snapshot.data[index].title as String,
-                                         videoID: widget.where == SearchTo.video
-                                        ? Provider.of<GetVideosFromYT>(context,
-                                                listen: false,)
-                                                .myListssss[index]
-                                            .id.toString()
+                                    videoID: widget.where == SearchTo.video
+                                        ? Provider.of<GetVideosFromYT>(
+                                            context,
+                                            listen: false,
+                                          ).myListssss[index].id.toString()
                                         : snapshot.data[index].id as String,
+                                    thumbHigh: snapshot.data[index].thumbnails
+                                        .highResUrl as String,
+                                    /*
+
+
+snapshot.data[index].title as String,
+                                  snapshot.data[index].id as VideoId,
+                                                                 
+                                  s                                    */
+                                    id: snapshot.data[index].id as VideoId,
+                                    thumbLow: snapshot.data[index].thumbnails
+                                        .lowResUrl as String,
+                                    thumbMid: snapshot.data[index].thumbnails
+                                        .mediumResUrl as String,
                                   ),
                                 ),
                               );

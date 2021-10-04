@@ -41,15 +41,10 @@ class GetVideosFromYT extends ChangeNotifier {
     yt.channels.getUploadsFromPage(qq).then((ChannelUploadsList value2) {
       /* value2.nextPage(); */
       for (final Video video in value2) {
-        /* _mm.add(video); */
         myListforchannel.add(video);
-        /* print('adding function->${video.title}'); */
       }
       lastchannelvid = value2;
     });
-
-    /* notifyListeners(); */
-    /* return _mm; */
   }
 
   ///playlist-info
@@ -74,7 +69,6 @@ class GetVideosFromYT extends ChangeNotifier {
     await yt.search.getVideos(keyword).then((SearchList value) {
       for (final Video i in value) {
         myListssss.add(i);
-        /* print('#done ${i.title}'); */
       }
       lastVid = value;
     });
@@ -87,7 +81,6 @@ class GetVideosFromYT extends ChangeNotifier {
       if (value!.isNotEmpty) {
         for (final Video item in value) {
           myListssss.add(item);
-          /* print('#done ${item.title}'); */
         }
         lastVid = value;
       }
@@ -102,7 +95,6 @@ class GetVideosFromYT extends ChangeNotifier {
       if (value!.isNotEmpty) {
         for (final Video item in value) {
           myListforchannel.add(item);
-          /* print('#done ${item.title}'); */
         }
         lastchannelvid = value;
       }
@@ -113,10 +105,8 @@ class GetVideosFromYT extends ChangeNotifier {
 
   /// this is should go in future
   void dispoo() {
-    /* print('disoooooooooooo'); */
     myListssss = <Video>[];
     myListforchannel = <Video>[];
-    /* if (lastVid.isNotEmpty) {} */
     notifyListeners();
   }
 }

@@ -26,6 +26,9 @@ const NeumorphicThemeData dktheme = NeumorphicThemeData(
   baseColor: kprimaryColorD,
   // accentColor: NeumorphicColors.darkAccent,
   defaultTextColor: Colors.white,
+  buttonStyle: NeumorphicStyle(
+      /* intensity: 0.2, */
+      ),
   appBarTheme: NeumorphicAppBarThemeData(
     color: kprimaryColorD,
     textStyle: TextStyle(
@@ -223,27 +226,3 @@ Future<bool> requestPermission(Permission permission) async {
   }
   return false;
 }
-
-
-/// show download complete notification
-/*   Future<void> showNotification(Map<String, dynamic> downloadStatus) async { */
-/*     final AndroidNotificationDetails android = AndroidNotificationDetails( */
-/*       'channel id', */
-/*       'channel name', */
-/*       'channel description', */
-/*       priority: Priority.High, */
-/*       importance: Importance.Max */
-/*     ); */
-/*     const IOSNotificationDetails iOS = IOSNotificationDetails(); */
-/*     final NotificationDetails platform = NotificationDetails(android, iOS); */
-/*     final String json = jsonEncode(downloadStatus); */
-/*     final isSuccess = downloadStatus['isSuccess']; */
-/*  */
-/*     await flutterLocalNotificationsPlugin.show( */
-/*       0, // notification id */
-/*       isSuccess ? 'Success' : 'Failure', */
-/*       isSuccess ? 'File has been downloaded successfully!' : 'There was an error while downloading the file.', */
-/*       platform, */
-/*       payload: json */
-/*     ); */
-/*   } */

@@ -12,6 +12,7 @@ class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       backgroundColor: NeumorphicTheme.currentTheme(context).baseColor,
       appBar: myAppBar(
         context,

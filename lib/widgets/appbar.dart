@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:line_icons/line_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:ytdownload/pages/download/downloadpage.dart';
+import 'package:ytdownload/services/getcommentyt.dart';
 import 'package:ytdownload/services/getvidyt.dart';
 import 'package:ytdownload/utils/const.dart';
 
@@ -47,6 +48,8 @@ NeumorphicAppBar myAppBar(
             onPressed: () {
               if (dispo == isDispo.yes) {
                 Provider.of<GetVideosFromYT>(context, listen: false).dispoo();
+              } else {
+                Provider.of<GetCommentsFromYT>(context, listen: false).dispoo();
               }
               Navigator.pop(context);
             },
