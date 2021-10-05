@@ -38,15 +38,9 @@ class MyApp extends StatelessWidget {
     return const NeumorphicApp(
       debugShowCheckedModeBanner: false,
       title: 'Awesome Youtube Downloader',
+      // themeMode: ThemeMode.system,
       theme: ltheme,
       darkTheme: dktheme,
-      // theme: ThemeData(
-      //   textTheme: GoogleFonts.openSansTextTheme(
-      //     Theme.of(context).textTheme,
-      //   ).apply(
-      //       /* bodyColor: Colors.white, */
-      //       ),
-      // ),
       home: MyHomePage(),
     );
   }

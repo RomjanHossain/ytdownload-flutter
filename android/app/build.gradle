@@ -40,7 +40,8 @@ android {
 
     defaultConfig {
         applicationId "com.dstore.y2d"
-        minSdkVersion 17
+        // minSdkVersion 17
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

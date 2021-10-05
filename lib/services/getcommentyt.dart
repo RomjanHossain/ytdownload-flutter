@@ -27,19 +27,25 @@ class GetCommentsFromYT extends ChangeNotifier {
     comments!.forEach((Comment p0) {
       myListssss.add(p0);
     });
+    /* comments.nextPage() */
     lastComment = comments;
     notifyListeners();
   }
 
   /// get next comments
   Future<void> getnextcomments() async {
+    print('get next comment runned');
+    print(lastComment.last.text);
     lastComment.nextPage().then((CommentsList? value) {
-      if (value!.isNotEmpty) {
-        value.forEach((Comment p0) {
-          myListssss.add(p0);
-        });
-        lastComment = value;
-      }
+      /* if (value!.isNotEmpty) { */
+      value!.forEach((Comment p0) {
+        myListssss.add(p0);
+        print(p0.text);
+      });
+      lastComment = value;
+      /* } else { */
+      /*   print('value is empty'); */
+      /* } */
     });
     notifyListeners();
   }

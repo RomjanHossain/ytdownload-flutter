@@ -1,9 +1,7 @@
 import 'package:flutter_neumorphic/flutter_neumorphic.dart';
-import 'package:flutter/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:ytdownload/services/getcommentyt.dart';
-import 'package:ytdownload/services/getvidyt.dart';
 import '../../utils/const.dart';
 
 /// show download listo
@@ -42,10 +40,10 @@ class AllComments extends StatefulWidget {
 
 class _AllCommentsState extends State<AllComments> {
   ScrollController controller = ScrollController();
-  late Future _commentFuture;
+  late Future<List<Comment>> _commentFuture;
   @override
   void initState() {
-    print('init state');
+    /* print('init state'); */
     super.initState();
     commentfuture();
     Provider.of<GetCommentsFromYT>(context, listen: false)
@@ -54,7 +52,6 @@ class _AllCommentsState extends State<AllComments> {
       setState(() {});
     });
     controller.addListener(controllerListener);
-    /* commentfuture(); */
   }
 
   void commentfuture() {
@@ -74,11 +71,8 @@ class _AllCommentsState extends State<AllComments> {
   void controllerListener() {
     if (controller.offset >= controller.position.maxScrollExtent &&
         !controller.position.outOfRange) {
-      Provider.of<GetCommentsFromYT>(context, listen: false)
-          .getnextcomments()
-          .then((value) {
-        setState(() {});
-      });
+      Provider.of<GetCommentsFromYT>(context, listen: false).getnextcomments();
+
       /* setState(() {}); */
       print('this is out of ranger shitshis hiksdkfj');
     }
@@ -92,14 +86,14 @@ class _AllCommentsState extends State<AllComments> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<List<Comment>>(
       future: _commentFuture,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<Comment>> snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
             controller: controller,
             physics: const BouncingScrollPhysics(),
-            itemCount: snapshot.data.length as int,
+            itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {
               /* print(snapshot.data[index].text); */
               return Neumorphic(
@@ -111,17 +105,17 @@ class _AllCommentsState extends State<AllComments> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          snapshot.data[index].author as String,
+                          snapshot.data![index].author,
                           style: Theme.of(context)
                               .textTheme
                               .caption!
                               .copyWith(color: kytcol),
                         ),
-                        Text(snapshot.data[index].publishedTime as String),
+                        Text(snapshot.data![index].publishedTime),
                       ],
                     ),
                     Text(
-                      snapshot.data[index].text as String,
+                      snapshot.data![index].text,
                       style: Theme.of(context).textTheme.subtitle1,
                       textAlign: TextAlign.center,
                     ),

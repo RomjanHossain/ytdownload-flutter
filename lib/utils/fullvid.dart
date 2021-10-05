@@ -14,9 +14,8 @@ FutureBuilder<List<Widget>> fullvidWidgets(
     // initialData: InitialData,
     builder: (BuildContext context, AsyncSnapshot snapshot) {
       if (snapshot.hasData) {
-        /* print('this is snap ${snapshot.data[0]}'); */
-        // return snapshot.data[0] as Widget;
-        return Column(
+       
+        return Wrap(
           children: snapshot.data as List<Widget>,
         );
       } else if (snapshot.hasError) {
@@ -56,6 +55,7 @@ Future<List<Widget>> getfullvideo(
     final String _ext = _sp[1].substring(_sp[1].length - 2);
     fullwid.add(NeumorphicButton(
       onPressed: () {
+        
         /* print('pressed only vid shit'); */
         Provider.of<YoutubeDownloadProvider>(context, listen: false)
             .addFullvideoaudio(YoutubeDownloadModel(

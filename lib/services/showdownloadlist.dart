@@ -19,14 +19,12 @@ void showDownloadListo(
   String thumbHigh,
   // String thumb4,
 ) {
-  // final AudioOnlyStreamInfo audio = manifest.audioOnly.last;
-  // vido = manifest.videoOnly
 
   showModalBottomSheet<void>(
     context: context,
     builder: (BuildContext builder) {
       return ListView(
-        physics: const BouncingScrollPhysics(),
+        physics: const ClampingScrollPhysics(),
         children: <Widget>[
           Padding(
             padding: const EdgeInsets.only(top: 20),
@@ -38,7 +36,6 @@ void showDownloadListo(
           ),
           fullvidWidgets(id, context, thumbMid, title),
           Padding(
-            /* padding: const EdgeInsets.all(8.0), */
             padding: const EdgeInsets.only(top: 20),
             child: Text(
               'Only Audio',
@@ -48,7 +45,6 @@ void showDownloadListo(
           ),
           audioWidgets(id, context, thumbMid, title),
           Padding(
-            /* padding: const EdgeInsets.all(8.0), */
             padding: const EdgeInsets.only(top: 20),
             child: Text(
               'Only Video',

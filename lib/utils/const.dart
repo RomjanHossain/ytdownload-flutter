@@ -60,6 +60,8 @@ const NeumorphicThemeData dktheme = NeumorphicThemeData(
 /// neumophic light theme
 const NeumorphicThemeData ltheme = NeumorphicThemeData(
   baseColor: kprimaryColor,
+  // defaultTextColor: Colors.black,
+  textTheme: TextTheme(button: TextStyle(color: Colors.black,)),
   appBarTheme: NeumorphicAppBarThemeData(
     color: kprimaryColor,
     textStyle: TextStyle(
