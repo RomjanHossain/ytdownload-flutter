@@ -65,7 +65,7 @@ NeumorphicAppBar myAppBar(
             intensity: 0.6,
           ),
           onPressed: () {
-            Navigator.push(
+            Navigator.push<dynamic>(
               context,
               MaterialPageRoute<dynamic>(
                 builder: (BuildContext context) => const DownloadPage(),

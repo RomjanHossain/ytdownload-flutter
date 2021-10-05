@@ -24,7 +24,12 @@ class MyHomePage extends StatelessWidget {
       body: MyBody(),
       floatingActionButton: NeumorphicFloatingActionButton(
         mini: true,
-        child: const Icon(Icons.brightness_7),
+        child: Icon(
+          Icons.brightness_7,
+          color: NeumorphicTheme.isUsingDark(context)
+              ? Colors.white
+              : Colors.black,
+        ),
         onPressed: () {
           if (NeumorphicTheme.of(context)!.isUsingDark) {
             NeumorphicTheme.of(context)!.themeMode = ThemeMode.light;

@@ -34,7 +34,7 @@ class ShowingListOfVideos extends StatefulWidget {
 
 class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
   ScrollController controller = ScrollController();
-  late Future _myfuture;
+  late Future<List<Video>> _myfuture;
 
   @override
   void initState() {
@@ -49,8 +49,9 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
     } else if (widget.where == SearchTo.channel) {
       Provider.of<GetVideosFromYT>(context, listen: false)
           .forfutureChannelVideos(widget.query)
-          .then((value) {
-        Future.delayed(const Duration(seconds: 3)).then((value) {
+          .then((dynamic value) {
+        Future<String>.delayed(const Duration(seconds: 3))
+            .then((dynamic value) {
           setState(() {});
         });
       });
@@ -106,7 +107,7 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<List<Video>>(
       future: _myfuture,
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         Widget wid;
@@ -147,9 +148,9 @@ class _ShowingListOfVideosState extends State<ShowingListOfVideos> {
                           ),
                           child: GestureDetector(
                             onTap: () {
-                              Navigator.push(
+                              Navigator.push<dynamic>(
                                 context,
-                                MaterialPageRoute(
+                                MaterialPageRoute<dynamic>(
                                   builder: (BuildContext context) =>
                                       SingleVideo(
                                     title: widget.where == SearchTo.video
@@ -295,7 +296,7 @@ snapshot.data[index].title as String,
                                   ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.push(
+                                  Navigator.push<dynamic>(
                                     context,
                                     MaterialPageRoute<dynamic>(
                                       builder: (BuildContext context) =>

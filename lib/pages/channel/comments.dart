@@ -42,7 +42,7 @@ class AllComments extends StatefulWidget {
 
 class _AllCommentsState extends State<AllComments> {
   ScrollController controller = ScrollController();
-  late Future _commentFuture;
+  late Future<List<Comment>> _commentFuture;
   @override
   void initState() {
     print('init state');
@@ -92,14 +92,14 @@ class _AllCommentsState extends State<AllComments> {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
+    return FutureBuilder<List<Comment>>(
       future: _commentFuture,
-      builder: (BuildContext context, AsyncSnapshot snapshot) {
+      builder: (BuildContext context, AsyncSnapshot<List<Comment>> snapshot) {
         if (snapshot.hasData) {
           return ListView.builder(
             controller: controller,
             physics: const BouncingScrollPhysics(),
-            itemCount: snapshot.data.length as int,
+            itemCount: snapshot.data!.length,
             itemBuilder: (BuildContext context, int index) {
               /* print(snapshot.data[index].text); */
               return Neumorphic(
@@ -111,17 +111,17 @@ class _AllCommentsState extends State<AllComments> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: <Widget>[
                         Text(
-                          snapshot.data[index].author as String,
+                          snapshot.data![index].author,
                           style: Theme.of(context)
                               .textTheme
                               .caption!
                               .copyWith(color: kytcol),
                         ),
-                        Text(snapshot.data[index].publishedTime as String),
+                        Text(snapshot.data![index].publishedTime ),
                       ],
                     ),
                     Text(
-                      snapshot.data[index].text as String,
+                      snapshot.data![index].text,
                       style: Theme.of(context).textTheme.subtitle1,
                       textAlign: TextAlign.center,
                     ),

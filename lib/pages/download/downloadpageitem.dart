@@ -70,9 +70,9 @@ class _DownloadPageItemState extends State<DownloadPageItem> {
       if (true) {
         /* print('UI Isolate Callback: $data'); */
       }
-      final String? id = data[0];
-      final DownloadTaskStatus? status = data[1];
-      final int? progress = data[2];
+      final String id = data[0].toString();
+      final DownloadTaskStatus status = data[1] as DownloadTaskStatus;
+      final int progress = data[2] as int;
 
       if (_tasks != null && _tasks!.isNotEmpty) {
         final YoutubeDownloadModel task = _tasks!

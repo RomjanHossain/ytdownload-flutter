@@ -26,6 +26,7 @@ class _MyBodyState extends State<MyBody> {
       children: <Widget>[
         Center(
           child: NeumorphicToggle(
+            
             style: const NeumorphicToggleStyle(
               backgroundColor: Color(0xffFF0000),
             ),
@@ -112,7 +113,7 @@ class _MyBodyState extends State<MyBody> {
                   onPressed: () {
                     /* print('thi searchto ->$_st'); */
                     if (val.isNotEmpty) {
-                      Navigator.push(
+                      Navigator.push<dynamic>(
                         context,
                         animateTopage(
                           ShowingResult(
@@ -138,9 +139,11 @@ class _MyBodyState extends State<MyBody> {
                       const SizedBox(width: 5),
                       Text(
                         'Search',
-                        style: NeumorphicTheme.currentTheme(context)
-                            .textTheme
-                            .bodyText2,
+                        style: TextStyle(
+                          color: NeumorphicTheme.isUsingDark(context)
+                              ? Colors.white
+                              : Colors.black,
+                        ),
                       ),
                     ],
                   ),
