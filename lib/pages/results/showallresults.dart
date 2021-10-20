@@ -295,7 +295,7 @@ snapshot.data[index].title as String,
                                   ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  Navigator.push(
+                                  Navigator.push<dynamic>(
                                     context,
                                     MaterialPageRoute<dynamic>(
                                       builder: (BuildContext context) =>
