@@ -11,12 +11,12 @@ class GetCommentsFromYT extends ChangeNotifier {
   /// last commet
   late CommentsList lastComment;
 
-  /// Isdafsd
-  List<Comment> myListssss = <Comment>[];
+  /// comments list
+  List<Comment> commentsList = <Comment>[];
 
   /// future comment
   Future<List<Comment>> forfuture() async {
-    return myListssss;
+    return commentsList;
   }
 
   /// get comments from videos
@@ -25,7 +25,7 @@ class GetCommentsFromYT extends ChangeNotifier {
     final CommentsList? comments =
         await yt.videos.commentsClient.getComments(video);
     comments!.forEach((Comment p0) {
-      myListssss.add(p0);
+      commentsList.add(p0);
     });
     /* comments.nextPage() */
     lastComment = comments;
@@ -39,7 +39,7 @@ class GetCommentsFromYT extends ChangeNotifier {
     lastComment.nextPage().then((CommentsList? value) {
       /* if (value!.isNotEmpty) { */
       value!.forEach((Comment p0) {
-        myListssss.add(p0);
+        commentsList.add(p0);
         print(p0.text);
       });
       lastComment = value;
@@ -52,7 +52,7 @@ class GetCommentsFromYT extends ChangeNotifier {
 
   /// this is should go in future
   void dispoo() {
-    myListssss = <Comment>[];
+    commentsList = <Comment>[];
     notifyListeners();
   }
 }
